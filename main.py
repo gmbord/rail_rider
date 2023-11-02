@@ -1,4 +1,4 @@
-from gpiozero import MOTOR
+# from gpiozero import MOTOR
 
 print("bennet sucks")
 # motor1 = MOTOR(14)
