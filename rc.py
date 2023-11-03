@@ -6,4 +6,4 @@ reader = read_sbus_from_GPIO.SbusReader(SBUS_PIN)
 reader.begin_listen()
 
 def test_func():
-    print("NNNNNNNNNNN")
+    display_latest_packet()
