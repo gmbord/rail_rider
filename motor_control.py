@@ -5,7 +5,7 @@ DRIVE = 18
 BRUSH_L = 12
 BRUSH_R = 13
 
-pi = pigpio.redpi()
+pi = pigpio.pi()
 pi.set_duty_cycle(DRIVE, 0)
 pi.set_duty_cycle(BRUSH_L, 0)
 pi.set_duty_cycle(BRUSH_R, 0)
