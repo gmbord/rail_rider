@@ -1,6 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 from rc import *
+from motor_control import *
 
 test_motor()
 
