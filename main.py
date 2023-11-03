@@ -2,6 +2,8 @@ import time
 import RPi.GPIO as GPIO
 from rc import *
 
+test_motor()
+
 while True:
     test_func()
     time.sleep(1)
