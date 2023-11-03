@@ -3,10 +3,12 @@ import RPi.GPIO as GPIO
 from rc import *
 from motor_control import *
 
-test_motor()
+
 
 while True:
     test_func()
+    set_drive_speed(0.2)
+    set_brush_speed(0.2)
     time.sleep(1)
 
 
