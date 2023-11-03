@@ -2,7 +2,6 @@ import time
 import RPi.GPIO as GPIO
 from rc import *
 
-test_func()
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(13, GPIO.OUT)
