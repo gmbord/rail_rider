@@ -1,6 +1,11 @@
-# from gpiozero import MOTOR
+import time
+import RPi.GPIO as GPIO
 
-print("bennet sucks")
-# motor1 = MOTOR(14)
-# motor1.value = 0.4
-#big change
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(13, GPIO.OUT)
+
+p = GPIO.PWM(13, 50)
+p.start(0)
+time.sleep(10)
+
+p.ChangeDutyCycle(3)
