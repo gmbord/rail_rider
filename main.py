@@ -4,7 +4,7 @@ from rc import *
 
 while True:
     test_func()
-
+    time.sleep(1)
 
 
 # GPIO.setmode(GPIO.BOARD)
