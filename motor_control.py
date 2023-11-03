@@ -13,9 +13,9 @@ pi.set_PWM_dutycycle(BRUSH_R, 0)
     
 def set_drive_speed(speed):
     pi.set_PWM_dutycycle(DRIVE, speed)
-    print("DRIVE SPEED SET TO: " + speed)
+    print("DRIVE SPEED SET TO: %.2f", (speed))
     
 def set_brush_speed(speed):
     pi.set_PWM_dutycycle(BRUSH_L, speed)
     pi.set_PWM_dutycycle(BRUSH_R, speed)
-    print("BRUSH SPEED SET TO: " + speed)
+    print("BRUSH SPEED SET TO: %.2f", (speed))
