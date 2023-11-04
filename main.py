@@ -1,7 +1,7 @@
 import time
 import RPi.GPIO as GPIO
-from rc import *
-from motor_control import *
+from src/rc import *
+from src/motor_control import *
 
 
 
