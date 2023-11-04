@@ -6,6 +6,9 @@ BRUSH_L = 12
 BRUSH_R = 13
 
 pi = pigpio.pi()
+pi.set_mode(DRIVE, pigpio.OUTPUT)
+pi.set_mode(BRUSH_L, pigpio.OUTPUT)
+pi.set_mode(BRUSH_R, pigpio.OUTPUT)
 pi.set_PWM_dutycycle(DRIVE, 0)
 pi.set_PWM_dutycycle(BRUSH_L, 0)
 pi.set_PWM_dutycycle(BRUSH_R, 0)
