@@ -25,12 +25,18 @@ linear_chanel = 10
 def update_armed():
     sig = read_sbus_chanel(drive_armed_chanel)
     sig2 = read_sbus_chanel(brush_armed_chanel)
-    if sig > 1500:
-        Drive_Armed = True
+    if sig >= 1000 and sig <= 2000:
+        if sig > 1500:
+            Drive_Armed = True
+        else:
+            Drive_Armed = False
     else:
         Drive_Armed = False
-    if sig2 > 1500:
-        Brush_Armed = True
+    if sig2 >= 1000 and sig2 <= 2000:
+        if sig2 > 1500:
+            Brush_Armed = True
+        else:
+            Brush_Armed = False
     else:
         Brush_Armed = False
         
@@ -56,10 +62,11 @@ def update_brush():
     
 def update_elight():
     sig = read_sbus_chanel(elight_chanel)
-    if sig > 1500:
-        activate_emergency_light()
-    else:
-        deactivate_emergency_light()
+    if sig >= 1000 and sig <= 2000:
+        if sig > 1500:
+            activate_emergency_light()
+        else:
+            deactivate_emergency_light()
         
 def update_linear():
     sig = read_sbus_chanel(linear_chanel)
