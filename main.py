@@ -11,5 +11,8 @@ while True:
     test_func()
     set_drive_speed(0.2)
     set_brush_speed(0.2)
-    
+    activate_brush_power()
+    activate_drive_power()
+    activate_emergency_light()
+    lower_linear()
 
