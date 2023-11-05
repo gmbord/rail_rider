@@ -28,14 +28,14 @@ linear_chanel = 10
 def update_armed():
     sig = read_sbus_chanel(drive_armed_chanel)
     sig2 = read_sbus_chanel(brush_armed_chanel)
-    if sig >= 1000 and sig <= 2000:
+    if sbus_connected():
         if sig > 1500:
             Drive_Armed = True
         else:
             Drive_Armed = False
     else:
         Drive_Armed = False
-    if sig2 >= 1000 and sig2 <= 2000:
+    if sbus_connected():
         if sig2 > 1500:
             Brush_Armed = True
         else:
@@ -45,7 +45,7 @@ def update_armed():
         
 def update_drive():
     sig = read_sbus_chanel(drive_trotle_chanel)
-    if sig >= 1000 and sig <= 2000:
+    if sbus_connected():
         power = (sig - 1000) / 1000 #max is full
         if power > 1:
             power = 1
@@ -55,7 +55,7 @@ def update_drive():
 
 def update_brush():
     sig = read_sbus_chanel(brush_trotle_chanel)
-    if sig >= 1000 and sig <= 2000:
+    if sbus_connected():
         power = (sig - 1000) / 2000 #max is half power
         if power > 0.5:
             power = 0.5
@@ -65,7 +65,7 @@ def update_brush():
     
 def update_elight():
     sig = read_sbus_chanel(elight_chanel)
-    if sig >= 1000 and sig <= 2000:
+    if sbus_connected():
         if sig > 1500:
             activate_emergency_light()
         else:
@@ -73,12 +73,15 @@ def update_elight():
         
 def update_linear():
     sig = read_sbus_chanel(linear_chanel)
-    if sig < 1200 and sig >= 1000:
-        lower_linear()
-    elif sig > 1200 and sig <= 1800:
-        stop_linear()
-    elif sig > 1800 and sig <= 2000:
-        raise_linear()
+    if sbus_connected():
+        if sig < 1200 and sig >= 1000:
+            lower_linear()
+        elif sig > 1200 and sig <= 1800:
+            stop_linear()
+        elif sig > 1800 and sig <= 2000:
+            raise_linear()
+        else:
+            stop_linear()
     else:
         stop_linear()
     

@@ -10,3 +10,6 @@ def display_sbus():
     
 def read_sbus_chanel(chanel):
     return reader.translate_latest_packet()[chanel-1]
+
+def sbus_connected()
+    return reader.is_connected()
