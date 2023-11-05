@@ -19,8 +19,7 @@ brush_trotle_chanel = 3
 elight_chanel = 8
 linear_chanel = 10
 
-initialize_robot()
-main_control_loop()
+
 
 
 def update_armed():
@@ -102,3 +101,5 @@ def main_control_loop():
         display_sbus()
         time.sleep(1)
 
+initialize_robot()
+main_control_loop()
