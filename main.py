@@ -1,3 +1,6 @@
+import sys
+sys.path.append("src")
+
 import time
 import RPi.GPIO as GPIO
 from rc import *
