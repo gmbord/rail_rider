@@ -15,4 +15,5 @@ while True:
     activate_drive_power()
     activate_emergency_light()
     lower_linear()
+    time.sleep(1)
 
