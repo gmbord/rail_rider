@@ -35,61 +35,76 @@ linear_state = 0
 def inc_drive_throttle():
     if drive_throttle < 100:
         globals().update(drive_throttle = drive_throttle+1)
+    update_drive(drive_throttle)
     print("Drive Throttle" + drive_throttle)
     
 def dec_drive_throttle():
     if drive_throttle > 0:
         globals().update(drive_throttle = drive_throttle-1)
+    update_drive(drive_throttle)
     print("Drive Throttle" + drive_throttle)
     
 def kill_drive_throttle():
     globals().update(drive_throttle = 0)
     globals().update(Drive_Armed = False)
+    update_drive(drive_throttle)
+    deactivate_drive_power()
     print("Drive Throttle" + drive_throttle)
     print("Drive Disarmed")
     
 def inc_brush_throttle():
     if brush_throttle < 100:
         globals().update(brush_throttle = brush_throttle+1)
+    update_brush(brush_throttle)
     print("Brush Throttle" + brush_throttle)
     
 def dec_brush_throttle():
     if brush_throttle > 100:
         globals().update(brush_throttle = brush_throttle-1)
+    update_brush(brush_throttle)
     print("Brush Throttle" + brush_throttle)
     
 def kill_brush_throttle():
     globals().update(brush_throttle = 0)
     globals().update(Brush_Armed = False)
+    update_brush(brush_throttle)
+    deactivate_brush_power()
     print("Brush Throttle" + brush_throttle)
     print("Brush Disarmed")
     
 def arm_brush():
     globals().update(Brush_Armed = True)
+    activate_brush_power()
     print("Brush Armed")
     
 def arm_drive():
     globals().update(Drive_Armed = True)
+    activate_drive_power()
     print("Drive Armed")
     
 def turn_elight_on():
     globals().update(elight_on = True)
+    update_elight(elight_on)
     print("Emergency Light On")
     
 def turn_elight_off():
-    globals().update(elight_on = True)
+    globals().update(elight_on = False)
+    update_elight(elight_on)
     print("Emergency Light Off")
     
 def set_linear_up():
     globals().update(linear_state = 1)
+    update_linear()
     print("Linear State: Raising")
     
 def set_linear_down():
     globals().update(linear_state = -1)
+    update_linear()
     print("Linear State: Lowering")
     
 def set_linear_stop():
     globals().update(linear_state = 0)
+    update_linear()
     print("Linear State: Stopping")
     
 # def update_armed():
@@ -143,25 +158,6 @@ def initialize_robot():
     set_brush_speed(0)
 
 def main_control_loop():
-    # while True:
-    #     update_armed()
-    #     if Drive_Armed:
-    #         activate_drive_power()
-    #         update_drive()
-    #     else:
-    #         deactivate_drive_power()
-    #         set_drive_speed(0)
-    #     if Brush_Armed:
-    #         activate_brush_power()
-    #         update_brush()
-    #     else:
-    #         deactivate_brush_power()
-    #         set_brush_speed(0)
-        
-    #     update_elight()
-    #     update_linear()
-    #     display_sbus()
-    #     time.sleep(1)
     keyboard.add_hotkey('w', inc_drive_throttle)
     keyboard.add_hotkey('q', dec_drive_throttle)
     keyboard.add_hotkey('x', kill_drive_throttle)
@@ -176,25 +172,7 @@ def main_control_loop():
     keyboard.add_hotkey('o', set_linear_stop)
     keyboard.add_hotkey('p', set_linear_up)
     
-    while True:
-        if Drive_Armed:
-            activate_drive_power()
-            update_drive(drive_throttle)
-        else:
-            deactivate_drive_power()
-            set_drive_speed(0)
-            globals().update(drive_throttle = 0)
-        if Brush_Armed:
-            activate_brush_power()
-            update_brush(brush_throttle)
-        else:
-            deactivate_brush_power()
-            set_brush_speed(0)
-            globals().update(brush_throttle = 0)
-            
-        update_elight(elight_on)
-        update_linear(linear_state)
-        time.sleep(0.5)
+    keyboard.wait('esc')  
         
 initialize_robot()
 main_control_loop()
