@@ -81,7 +81,7 @@ def kill_brush_throttle():
     globals().update(Brush_Armed = False)
     update_brush(brush_throttle)
     deactivate_brush_power()
-    print("Brush Throttle" + brush_throttle)
+    print("Brush Throttle", brush_throttle)
     print("Brush Disarmed")
     
 def arm_brush():
