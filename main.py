@@ -49,6 +49,15 @@ def dec_drive_throttle():
         print("Drive Throttle", drive_throttle)
     else:
         print("Drive Disarmed")
+        
+def drive_throttle_zero():
+    if Drive_Armed:
+        if drive_throttle > 0:
+            globals().update(drive_throttle = 0)
+        update_drive(drive_throttle)
+        print("Drive Throttle", drive_throttle)
+    else:
+        print("Drive Disarmed")
     
 def kill_drive_throttle():
     globals().update(drive_throttle = 0)
@@ -71,6 +80,15 @@ def dec_brush_throttle():
     if Brush_Armed:
         if brush_throttle > 0:
             globals().update(brush_throttle = brush_throttle-1)
+        update_brush(brush_throttle)
+        print("Brush Throttle" , brush_throttle)
+    else:
+        print("Brush Disarmed")
+        
+def brush_throttle_zero():
+    if Brush_Armed:
+        if brush_throttle > 0:
+            globals().update(brush_throttle = 0)
         update_brush(brush_throttle)
         print("Brush Throttle" , brush_throttle)
     else:
@@ -172,9 +190,11 @@ def initialize_robot():
 def main_control_loop():
     keyboard.add_hotkey('w', inc_drive_throttle)
     keyboard.add_hotkey('q', dec_drive_throttle)
+    keyboard.add_hotkey('shift + q', drive_throttle_zero)
     keyboard.add_hotkey('x', kill_drive_throttle)
     keyboard.add_hotkey('s', inc_brush_throttle)
     keyboard.add_hotkey('a', dec_brush_throttle)
+    keyboard.add_hotkey('shift + a', brush_throttle_zero)
     keyboard.add_hotkey('z', kill_brush_throttle)
     keyboard.add_hotkey('shift + z', arm_brush)
     keyboard.add_hotkey('shift + x', arm_drive)
