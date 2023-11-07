@@ -1,5 +1,6 @@
 import sys
 sys.path.append("src")
+sys.path.append("/home/redpi/.local/lib/pyhton3.11/site-packages")
 
 import time
 # import RPi.GPIO as GPIO
