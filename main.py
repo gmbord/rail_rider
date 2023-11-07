@@ -36,33 +36,33 @@ def inc_drive_throttle():
     if drive_throttle < 100:
         globals().update(drive_throttle = drive_throttle+1)
     update_drive(drive_throttle)
-    print("Drive Throttle" + drive_throttle)
+    print("Drive Throttle", drive_throttle)
     
 def dec_drive_throttle():
     if drive_throttle > 0:
         globals().update(drive_throttle = drive_throttle-1)
     update_drive(drive_throttle)
-    print("Drive Throttle" + drive_throttle)
+    print("Drive Throttle", drive_throttle)
     
 def kill_drive_throttle():
     globals().update(drive_throttle = 0)
     globals().update(Drive_Armed = False)
     update_drive(drive_throttle)
     deactivate_drive_power()
-    print("Drive Throttle" + drive_throttle)
+    print("Drive Throttle", drive_throttle)
     print("Drive Disarmed")
     
 def inc_brush_throttle():
     if brush_throttle < 100:
         globals().update(brush_throttle = brush_throttle+1)
     update_brush(brush_throttle)
-    print("Brush Throttle" + brush_throttle)
+    print("Brush Throttle", brush_throttle)
     
 def dec_brush_throttle():
     if brush_throttle > 100:
         globals().update(brush_throttle = brush_throttle-1)
     update_brush(brush_throttle)
-    print("Brush Throttle" + brush_throttle)
+    print("Brush Throttle" , brush_throttle)
     
 def kill_brush_throttle():
     globals().update(brush_throttle = 0)
