@@ -94,17 +94,17 @@ def turn_elight_off():
     
 def set_linear_up():
     globals().update(linear_state = 1)
-    update_linear()
+    update_linear(linear_state)
     print("Linear State: Raising")
     
 def set_linear_down():
     globals().update(linear_state = -1)
-    update_linear()
+    update_linear(linear_state)
     print("Linear State: Lowering")
     
 def set_linear_stop():
     globals().update(linear_state = 0)
-    update_linear()
+    update_linear(linear_state)
     print("Linear State: Stopping")
     
 # def update_armed():
