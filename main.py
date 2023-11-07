@@ -33,16 +33,22 @@ elight_on = False
 linear_state = 0
 
 def inc_drive_throttle():
-    if drive_throttle < 100:
-        globals().update(drive_throttle = drive_throttle+1)
-    update_drive(drive_throttle)
-    print("Drive Throttle", drive_throttle)
+    if Drive_Armed:
+        if drive_throttle < 100:
+            globals().update(drive_throttle = drive_throttle+1)
+        update_drive(drive_throttle)
+        print("Drive Throttle", drive_throttle)
+    else:
+        print("Drive Disarmed")
     
 def dec_drive_throttle():
-    if drive_throttle > 0:
-        globals().update(drive_throttle = drive_throttle-1)
-    update_drive(drive_throttle)
-    print("Drive Throttle", drive_throttle)
+    if Drive_Armed:
+        if drive_throttle > 0:
+            globals().update(drive_throttle = drive_throttle-1)
+        update_drive(drive_throttle)
+        print("Drive Throttle", drive_throttle)
+    else:
+        print("Drive Disarmed")
     
 def kill_drive_throttle():
     globals().update(drive_throttle = 0)
@@ -53,16 +59,22 @@ def kill_drive_throttle():
     print("Drive Disarmed")
     
 def inc_brush_throttle():
-    if brush_throttle < 100:
-        globals().update(brush_throttle = brush_throttle+1)
-    update_brush(brush_throttle)
-    print("Brush Throttle", brush_throttle)
+    if Brush_Armed:
+        if brush_throttle < 100:
+            globals().update(brush_throttle = brush_throttle+1)
+        update_brush(brush_throttle)
+        print("Brush Throttle", brush_throttle)
+    else:
+        print("Brush Disarmed")
     
 def dec_brush_throttle():
-    if brush_throttle > 100:
-        globals().update(brush_throttle = brush_throttle-1)
-    update_brush(brush_throttle)
-    print("Brush Throttle" , brush_throttle)
+    if Brush_Armed:
+        if brush_throttle > 0:
+            globals().update(brush_throttle = brush_throttle-1)
+        update_brush(brush_throttle)
+        print("Brush Throttle" , brush_throttle)
+    else:
+        print("Brush Disarmed")
     
 def kill_brush_throttle():
     globals().update(brush_throttle = 0)
