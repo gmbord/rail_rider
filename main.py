@@ -60,7 +60,7 @@ def kill_drive_throttle():
     
 def inc_brush_throttle():
     if Brush_Armed:
-        if brush_throttle < 100:
+        if brush_throttle < 50:
             globals().update(brush_throttle = brush_throttle+1)
         update_brush(brush_throttle)
         print("Brush Throttle", brush_throttle)
