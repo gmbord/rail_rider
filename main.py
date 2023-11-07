@@ -194,6 +194,7 @@ def main_control_loop():
             
         update_elight(elight_on)
         update_linear(linear_state)
+        sleep(0.5)
         
 initialize_robot()
 main_control_loop()
