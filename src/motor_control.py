@@ -12,26 +12,16 @@ pi = pigpio.pi()
 pi.set_mode(DRIVE, pigpio.OUTPUT)
 pi.set_mode(BRUSH_L, pigpio.OUTPUT)
 pi.set_mode(BRUSH_R, pigpio.OUTPUT)
-pi.write(DRIVE, 0)
-pi.write(BRUSH_L, 0)
-pi.write(BRUSH_R, 0)
+pi.set_PWM_dutycycle(DRIVE, 0)
+pi.set_PWM_dutycycle(BRUSH_L, 0)
+pi.set_PWM_dutycycle(BRUSH_R, 0)
 
     
 def set_drive_speed(speed):
-    speed = (speed * 0.735) + 0.265
-    if speed > 1:
-        speed = 1
-    if speed < 0.265:
-        speed = 0.265
-    pi.write(DRIVE, speed)
+    pi.set_PWM_dutycycle(DRIVE, speed)
     print("DRIVE SPEED SET TO: ", (speed))
     
 def set_brush_speed(speed):
-    speed = (speed * 0.735) + 0.265
-    if speed > 1:
-        speed = 1
-    if speed < 0.265:
-        speed = 0.265
-    pi.write(BRUSH_L, speed)
-    pi.write(BRUSH_R, speed)
+    pi.set_PWM_dutycycle(BRUSH_L, speed)
+    pi.set_PWM_dutycycle(BRUSH_R, speed)
     print("BRUSH SPEED SET TO: ", (speed))
