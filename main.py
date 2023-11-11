@@ -216,10 +216,14 @@ def main_control_loop():
                 activate_drive_power()
                 update_drive()
             else:
-                deactivate_brush_power()
+                deactivate_drive_power()
+                set_drive_speed(0)
             if Brush_Armed:
                 activate_brush_power()
                 update_brush()
+            else:
+                deactivate_brush_power()
+                set_brush_speed(0)
             update_linear()
             print("SBUS IS CONNECTED: ", sbus_con)
             
