@@ -163,7 +163,7 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    # power = 0.3
+    power = 0.5
     output = str(int(255*power))+ '\n'
     out = bytes(output, 'utf-8')
     ser.write(out)
