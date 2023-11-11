@@ -39,6 +39,7 @@ while True:
 	time.sleep(0.5)
 	ser.write(b'150\n')
 	line = ser.readline().decode('utf-8').rstrip()
+	print(line)
 	time.sleep(0.5)
  
 
