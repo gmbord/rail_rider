@@ -164,10 +164,12 @@ def update_drive():
     if power < 0.02:
         power = 0
     # power = 0.3
-    # output = str(int(255*power))
-    # out = bytes(output, 'utf-8')
-    # ser.write(out)
-    set_drive_speed(power)
+    output = str(int(255*power))+ '\n'
+    out = bytes(output, 'utf-8')
+    ser.write(out)
+    line = ser.readline().decode('utf-8').rstrip()
+    print(line)
+    # set_drive_speed(power)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
@@ -215,34 +217,36 @@ def initialize_robot():
     set_brush_speed(0)
 
 def main_control_loop():
-    
     while True:
-        sbus_con = sbus_connected()
-        if sbus_con:
-            globals().update(Frames_Dropped  = 0)
-            update_armed()
-            if Drive_Armed:
-                activate_drive_power()
-                update_drive()
-            else:
-                deactivate_drive_power()
-                set_drive_speed(0)
-            if Brush_Armed:
-                activate_brush_power()
-                update_brush()
-            else:
-                deactivate_brush_power()
-                set_brush_speed(0)
-            update_linear()
-            print("SBUS IS CONNECTED: ", sbus_con)
+        update_drive()
+    
+    # while True:
+    #     sbus_con = sbus_connected()
+    #     if sbus_con:
+    #         globals().update(Frames_Dropped  = 0)
+    #         update_armed()
+    #         if Drive_Armed:
+    #             activate_drive_power()
+    #             update_drive()
+    #         else:
+    #             deactivate_drive_power()
+    #             set_drive_speed(0)
+    #         if Brush_Armed:
+    #             activate_brush_power()
+    #             update_brush()
+    #         else:
+    #             deactivate_brush_power()
+    #             set_brush_speed(0)
+    #         update_linear()
+    #         print("SBUS IS CONNECTED: ", sbus_con)
             
-        else:
-            globals().update(Frames_Dropped  = Frames_Dropped + 1)
-            if Frames_Dropped > 2:
-                initialize_robot()
-        time.sleep(0.05)
-        print("")
-        print("*********************************************")
+    #     else:
+    #         globals().update(Frames_Dropped  = Frames_Dropped + 1)
+    #         if Frames_Dropped > 2:
+    #             initialize_robot()
+    #     time.sleep(0.05)
+    #     print("")
+    #     print("*********************************************")
         
         
     # keyboard.add_hotkey('w', inc_drive_throttle)
