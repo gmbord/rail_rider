@@ -227,7 +227,12 @@ def main_control_loop():
                 update_drive()
             else:
                 deactivate_drive_power()
-                set_drive_speed(0)
+                power = 0
+                output = str(int(255*power))+ '\n'
+                out = bytes(output, 'utf-8')
+                ser.write(out)
+                line = ser.readline().decode('utf-8').rstrip()
+                print(line)
             if Brush_Armed:
                 activate_brush_power()
                 update_brush()
