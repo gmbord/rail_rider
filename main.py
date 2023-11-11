@@ -140,7 +140,8 @@ def set_linear_stop():
     
 def update_armed():
     if read_sbus_chanel(drive_armed_chanel) > 1500:
-        globals().update(Drive_Armed = True)
+        if read_sbus_chanel(drive_trotle_chanel) < 200 and Drive_Armed == False:
+            globals().update(Drive_Armed = True)
     else:
         globals().update(Drive_Armed = False)
     if read_sbus_chanel(brush_armed_chanel) > 1500:
