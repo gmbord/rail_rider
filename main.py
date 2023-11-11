@@ -232,6 +232,8 @@ def main_control_loop():
             if Frames_Dropped > 2:
                 initialize_robot()
         time.sleep(0.5)
+        print("")
+        print("*********************************************")
         
         
     # keyboard.add_hotkey('w', inc_drive_throttle)
