@@ -231,7 +231,7 @@ def main_control_loop():
             globals().update(Frames_Dropped  = Frames_Dropped + 1)
             if Frames_Dropped > 2:
                 initialize_robot()
-        time.sleep(0.05)
+        time.sleep(0.5)
         
         
     # keyboard.add_hotkey('w', inc_drive_throttle)
