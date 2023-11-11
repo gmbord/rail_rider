@@ -140,15 +140,15 @@ def set_linear_stop():
     
 def update_armed():
     if read_sbus_chanel(drive_armed_chanel) > 1500:
-        Drive_Armed = True
+        globals().update(Drive_Armed = True)
     else:
-        Drive_Armed = False
+        globals().update(Drive_Armed = False)
     if read_sbus_chanel(brush_armed_chanel) > 1500:
-        Brush_Armed = True
+        globals().update(Brush_Armed = True)
     else:
-        Brush_Armed = False
+        globals().update(Brush_Armed = False)
         
-def update_drive(drive_throttle):
+def update_drive():
     # Throttle Stick, LOW: 192, HIOH: 1792
     sig = read_sbus_chanel(drive_trotle_chanel)
     high = 1792
@@ -161,7 +161,7 @@ def update_drive(drive_throttle):
         power = 0
     set_drive_speed(power)
 
-def update_brush(brush_throttle):
+def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
     # power = brush_throttle/100 #max is half power
     sig = read_sbus_chanel(brush_trotle_chanel)
@@ -183,7 +183,7 @@ def update_elight(elight_on):
     else:
         deactivate_emergency_light()
         
-def update_linear(linear_state):
+def update_linear():
     #Switch 1, LOW: 192, MID: 992, HIGH: 1792
     sig = read_sbus_chanel(linear_chanel)
     low = 192
