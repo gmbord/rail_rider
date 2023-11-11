@@ -4,7 +4,7 @@ import pigpio
 pi = pigpio.pi()
 
 DRIVE = 22
-BRUSH = 9
+BRUSH = 19
 
 
 pi.set_mode(DRIVE, pigpio.OUTPUT)
