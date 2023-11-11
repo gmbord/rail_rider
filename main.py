@@ -13,6 +13,9 @@ from linear_control import *
 from contactor_control import *
 from elight_control import *
 import keyboard
+import serial
+
+ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 
 
 
@@ -160,7 +163,10 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    set_drive_speed(power)
+    output = str(int(255*power))
+    out = bytes(output, 'utf-8')
+    ser.write(out)
+    # set_drive_speed(power)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
