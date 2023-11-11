@@ -175,7 +175,7 @@ def update_brush():
     else:
         power = 0
         
-    set_drive_speed(power)
+    set_brush_speed(power)
     
 def update_elight(elight_on):
     if elight_on:
