@@ -33,7 +33,7 @@ ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 while True:
 
 	print('Telling the Arduino to start blinking...')
-	ser.write(b'200\n')
+	ser.write(b'120\n')
 	line = ser.readline().decode('utf-8').rstrip()
 	print(line)
 	time.sleep(0.5)
