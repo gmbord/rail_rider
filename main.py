@@ -6,8 +6,8 @@ sys.path.append("/home/redpi/.local/lib/pyhton3.11/site-packages")
 
 
 import time
-# import RPi.GPIO as GPIO
-# from rc import *
+import RPi.GPIO as GPIO
+from rc import *
 from motor_control import *
 from linear_control import *
 from contactor_control import *
@@ -20,12 +20,13 @@ import keyboard
 Drive_Armed = False
 Brush_Armed = False
 
-# drive_armed_chanel = 6
-# brush_armed_chanel = 7
-# drive_trotle_chanel = 1
-# brush_trotle_chanel = 3
-# elight_chanel = 8
-# linear_chanel = 10
+Frames_Dropped = 0
+
+drive_armed_chanel = 6 # Switch 2, LOW: 192, High: 1792 
+brush_armed_chanel = 7 # Switch 3, LOW: 192, High: 1792 
+drive_trotle_chanel = 1 # Throttle Stick, LOW: 192, HIOH: 1792
+brush_trotle_chanel = 8 # Switch 4, LOW: 192, MID: 992, HIGH: 1792
+linear_chanel = 5 #Switch 1, LOW: 192, MID: 992, HIGH: 1792
 
 drive_throttle = 0
 brush_throttle = 0
@@ -137,18 +138,23 @@ def set_linear_stop():
     update_linear(linear_state)
     print("Linear State: Stopping")
     
-# def update_armed():
-#     if sig > 1500:
-#         Drive_Armed = True
-#     else:
-#         Drive_Armed = False
-#     if sig2 > 1500:
-#         Brush_Armed = True
-#     else:
-#         Brush_Armed = False
+def update_armed():
+    if read_sbus_chanel(drive_armed_chanel) > 1500:
+        Drive_Armed = True
+    else:
+        Drive_Armed = False
+    if read_sbus_chanel(brush_armed_chanel) > 1500:
+        Brush_Armed = True
+    else:
+        Brush_Armed = False
         
 def update_drive(drive_throttle):
-    power = drive_throttle/100 #max is full
+    # Throttle Stick, LOW: 192, HIOH: 1792
+    sig = read_sbus_chanel(drive_trotle_chanel)
+    high = 1792
+    low = 192
+    power = (sig - low) / (high - low)
+    # power = drive_throttle/100 #max is full
     if power > 1:
         power = 1
     if power < 0.02:
@@ -156,11 +162,19 @@ def update_drive(drive_throttle):
     set_drive_speed(power)
 
 def update_brush(brush_throttle):
-    power = brush_throttle/100 #max is half power
-    if power > 0.5:
-        power = 0.5
-    if power < 0.02:
+    # Switch 4, LOW: 192, MID: 992, HIGH: 1792
+    # power = brush_throttle/100 #max is half power
+    sig = read_sbus_chanel(brush_trotle_chanel)
+    low = 192
+    mid = 992
+    high = 1792
+    if sig > high - 100 and sig < high + 50:
+        power = 0.6
+    elif sig < mid + 100 and sig > mid - 100:
+        power = 0.3
+    else:
         power = 0
+        
     set_drive_speed(power)
     
 def update_elight(elight_on):
@@ -170,12 +184,17 @@ def update_elight(elight_on):
         deactivate_emergency_light()
         
 def update_linear(linear_state):
-    if linear_state == -1:
-        lower_linear()
-    elif linear_state == 0:
-        stop_linear()
-    elif linear_state == 1:
+    #Switch 1, LOW: 192, MID: 992, HIGH: 1792
+    sig = read_sbus_chanel(linear_chanel)
+    low = 192
+    mid = 992
+    high = 1792
+    if sig > high - 100 and sig < high + 50:
         raise_linear()
+    elif sig < mid + 100 and sig > mid - 100:
+        stop_linear()
+    elif sig < low + 50 and sig > low - 50:
+        lower_linear()
     else:
         stop_linear()
     
@@ -188,23 +207,48 @@ def initialize_robot():
     set_brush_speed(0)
 
 def main_control_loop():
-    keyboard.add_hotkey('w', inc_drive_throttle)
-    keyboard.add_hotkey('q', dec_drive_throttle)
-    keyboard.add_hotkey('shift + q', drive_throttle_zero)
-    keyboard.add_hotkey('x', kill_drive_throttle)
-    keyboard.add_hotkey('s', inc_brush_throttle)
-    keyboard.add_hotkey('a', dec_brush_throttle)
-    keyboard.add_hotkey('shift + a', brush_throttle_zero)
-    keyboard.add_hotkey('z', kill_brush_throttle)
-    keyboard.add_hotkey('shift + z', arm_brush)
-    keyboard.add_hotkey('shift + x', arm_drive)
-    keyboard.add_hotkey('l', turn_elight_on)
-    keyboard.add_hotkey('k', turn_elight_off)
-    keyboard.add_hotkey('i', set_linear_down)
-    keyboard.add_hotkey('o', set_linear_stop)
-    keyboard.add_hotkey('p', set_linear_up)
+    while True:
+        sbus_con = sbus_connected()
+        if sbus_con:
+            globals().update(Frames_Dropped  = 0)
+            update_armed()
+            if Drive_Armed:
+                activate_drive_power()
+                update_drive()
+            else:
+                deactivate_brush_power()
+            if Brush_Armed:
+                activate_brush_power()
+                update_brush()
+            update_linear()
+            print("SBUS IS CONNECTED: ", sbus_con)
+            
+        else:
+            globals().update(Frames_Dropped  = Frames_Dropped + 1)
+            if Frames_Dropped > 2:
+                initialize_robot()
+        time.sleep(0.05)
+        
+        
+    # keyboard.add_hotkey('w', inc_drive_throttle)
+    # keyboard.add_hotkey('q', dec_drive_throttle)
+    # keyboard.add_hotkey('shift + q', drive_throttle_zero)
+    # keyboard.add_hotkey('x', kill_drive_throttle)
+    # keyboard.add_hotkey('s', inc_brush_throttle)
+    # keyboard.add_hotkey('a', dec_brush_throttle)
+    # keyboard.add_hotkey('shift + a', brush_throttle_zero)
+    # keyboard.add_hotkey('z', kill_brush_throttle)
+    # keyboard.add_hotkey('shift + z', arm_brush)
+    # keyboard.add_hotkey('shift + x', arm_drive)
+    # keyboard.add_hotkey('l', turn_elight_on)
+    # keyboard.add_hotkey('k', turn_elight_off)
+    # keyboard.add_hotkey('i', set_linear_down)
+    # keyboard.add_hotkey('o', set_linear_stop)
+    # keyboard.add_hotkey('p', set_linear_up)
     
-    keyboard.wait('esc')  
+    # keyboard.wait('esc')  
+    
+    
         
 initialize_robot()
 main_control_loop()
