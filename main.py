@@ -163,7 +163,7 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    output = 'd' + str(int(255*power))+'\n'
+    output = str(int(255*power))+'\n'
     out = bytes(output, 'utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
@@ -172,7 +172,7 @@ def update_drive():
     
 def update_drive_zero():
     power = 0
-    output = 'd' + str(int(255*power))+'\n'
+    output = str(int(255*power))+'\n'
     out = bytes(output, 'utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
