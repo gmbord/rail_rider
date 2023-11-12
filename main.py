@@ -274,6 +274,7 @@ def main_control_loop():
         for i in range(255):
             write_test(i)
             read_serial()
+            time.sleep(0.5)
         time.sleep(0.5)
         
     # while True:
