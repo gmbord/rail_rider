@@ -34,7 +34,7 @@ while True:
 	power = 0.5
 	output = 'd' + str(int(255*power))+'\n'
 	out = output.encode('utf-8')
-	ser.write(bytes(out, 'utf-8'))
+	ser.write(out)
 	time.sleep(0.5)
  
 
