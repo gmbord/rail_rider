@@ -263,7 +263,7 @@ def main_control_loop():
                 initialize_robot()
                 Drive_Armed = False
                 Brush_Armed = False
-        time.sleep(0.05)
+        time.sleep(0.5)
         print("")
         print("*********************************************")
         
