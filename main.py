@@ -163,12 +163,20 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    output = str(int(255*power))+ '\n'
+    output = 'd' + str(int(255*power))+'\n'
     out = bytes(output, 'utf-8')
     ser.write(out)
     line = ser.readline().decode('utf-8').rstrip()
-    print(line)
+    print("Setting Drive Speed: ", line)
     # set_drive_speed(power)
+    
+def update_drive_zero():
+    power = 0
+    output = 'd' + str(int(255*power))+'\n'
+    out = bytes(output, 'utf-8')
+    ser.write(out)
+    line = ser.readline().decode('utf-8').rstrip()
+    print("Setting Drive Speed: ", line)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
@@ -183,8 +191,20 @@ def update_brush():
         power = 0.3
     else:
         power = 0
+    output = 'b' + str(int(255*power))+'\n'
+    out = bytes(output, 'utf-8')
+    ser.write(out)
+    line = ser.readline().decode('utf-8').rstrip()
+    print("Setting Drive Speed: ", line)
         
-    set_brush_speed(power)
+    # set_brush_speed(power)
+def update_brush_zero():
+    power = 0
+    output = 'b' + str(int(255*power))+'\n'
+    out = bytes(output, 'utf-8')
+    ser.write(out)
+    line = ser.readline().decode('utf-8').rstrip()
+    print("Setting Drive Speed: ", line)
     
 def update_elight(elight_on):
     if elight_on:
@@ -212,8 +232,8 @@ def initialize_robot():
     deactivate_drive_power()
     activate_emergency_light()
     stop_linear()
-    set_drive_speed(0)
-    set_brush_speed(0)
+    update_brush_zero()
+    update_drive_zero()
 
 def main_control_loop():
     
@@ -227,18 +247,13 @@ def main_control_loop():
                 update_drive()
             else:
                 deactivate_drive_power()
-                power = 0
-                output = str(int(255*power))+ '\n'
-                out = bytes(output, 'utf-8')
-                ser.write(out)
-                line = ser.readline().decode('utf-8').rstrip()
-                print(line)
+                update_drive_zero()
             if Brush_Armed:
                 activate_brush_power()
                 update_brush()
             else:
                 deactivate_brush_power()
-                set_brush_speed(0)
+                update_brush_zero()
             update_linear()
             print("SBUS IS CONNECTED: ", sbus_con)
             
@@ -246,6 +261,8 @@ def main_control_loop():
             globals().update(Frames_Dropped  = Frames_Dropped + 1)
             if Frames_Dropped > 2:
                 initialize_robot()
+                Drive_Armed = False
+                Brush_Armed = False
         time.sleep(0.05)
         print("")
         print("*********************************************")
