@@ -32,6 +32,8 @@ power = 0.1
 output = 'd' + str(int(255*power))+'\n'
 out = output.encode('utf-8')
 ser.write(out)
+line = ser.readline().decode('utf-8').rstrip()
+print("Setting Drive Speed: ", line)
 time.sleep(0.5)
 
 while True:
@@ -39,10 +41,8 @@ while True:
 	output = 'd' + str(int(255*power))+'\n'
 	out = output.encode('utf-8')
 	ser.write(out)
-	power = 0.5
-	output = 'b' + str(int(255*power))+'\n'
-	out = output.encode('utf-8')
-	ser.write(out)
+	line = ser.readline().decode('utf-8').rstrip()
+	print("Setting Drive Speed: ", line)
 	time.sleep(0.05)
  
 	
