@@ -163,9 +163,9 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    output = str(int(255*power))+'\n'
+    output = 'd' + str(int(255*power))+'\n'
     #out = bytes(output, 'utf-8')
-    out = output.encode()
+    out = output.encode('utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -173,9 +173,9 @@ def update_drive():
     
 def update_drive_zero():
     power = 0
-    output = str(int(255*power))+'\n'
+    output = 'd'+ str(int(255*power))+'\n'
     #out = bytes(output, 'utf-8')
-    out = output.encode()
+    out = output.encode('utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -195,7 +195,7 @@ def update_brush():
         power = 0
     output = 'b' + str(int(255*power))+'\n'
     #out = bytes(output, 'utf-8')
-    out = output.encode()
+    out = output.encode('utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -205,7 +205,7 @@ def update_brush_zero():
     power = 0
     output = 'b' + str(int(255*power))+'\n'
     #out = bytes(output, 'utf-8')
-    out = output.encode()
+    out = output.encode('utf-8')
     ser.write(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
