@@ -259,7 +259,7 @@ def main_control_loop():
             
         else:
             globals().update(Frames_Dropped  = Frames_Dropped + 1)
-            if Frames_Dropped > 2:
+            if Frames_Dropped > 50:
                 initialize_robot()
                 globals().update(Drive_Armed = False)
                 globals().update(Brush_Armed = False)
