@@ -236,11 +236,10 @@ def initialize_robot():
     update_drive_zero()
 
 def main_control_loop():
-    
+    Drive_Armed = False
+    Brush_Armed = False
     while True:
         sbus_con = sbus_connected()
-        globals().update(Drive_Armed = Drive_Armed)
-        globals().update(Brush_Armed = Brush_Armed)
         if sbus_con:
             globals().update(Frames_Dropped  = 0)
             
@@ -290,6 +289,6 @@ def main_control_loop():
     # keyboard.wait('esc')  
     
     
-        
+
 initialize_robot()
 main_control_loop()
