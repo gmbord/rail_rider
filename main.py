@@ -152,7 +152,7 @@ def update_armed():
     else:
         globals().update(Brush_Armed = False)
         
-def update_drive():
+def update_drive(test):
     # Throttle Stick, LOW: 192, HIOH: 1792
     sig = read_sbus_chanel(drive_trotle_chanel)
     high = 1792
@@ -163,32 +163,35 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    output = "d" + str(int(255*power))+"\n"
-    #out = bytes(output, 'utf-8')
-    out = output.encode('utf-8')
-    try:
-        ser.write(out)
-    except Error as e:
-        print(e)
-        print(out)
+    power = test/255
+    write_serial_d(power)
+    # output = "d" + str(int(255*power))+"\n"
+    # #out = bytes(output, 'utf-8')
+    # out = output.encode('utf-8')
+    # try:
+    #     ser.write(out)
+    # except Error as e:
+    #     print(e)
+    #     print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
     # set_drive_speed(power)
     
 def update_drive_zero():
     power = 0
-    output = "d"+ str(int(255*power))+"\n"
-    #out = bytes(output, 'utf-8')
-    out = output.encode('utf-8')
-    try:
-        ser.write(out)
-    except Error as e:
-        print(e)
-        print(out)
+    write_serial_d(power)
+    # output = "d"+ str(int(255*power))+"\n"
+    # #out = bytes(output, 'utf-8')
+    # out = output.encode('utf-8')
+    # try:
+    #     ser.write(out)
+    # except Error as e:
+    #     print(e)
+    #     print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
 
-def update_brush():
+def update_brush(test):
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
     # power = brush_throttle/100 #max is half power
     sig = read_sbus_chanel(brush_trotle_chanel)
@@ -201,28 +204,31 @@ def update_brush():
         power = 0.3
     else:
         power = 0
-    output = "b" + str(int(255*power))+"\n"
-    #out = bytes(output, 'utf-8')
-    out = output.encode('utf-8')
-    try:
-        ser.write(out)
-    except Error as e:
-        print(e)
-        print(out)
+    power = test/5
+    write_serial_b(power)
+    # output = "b" + str(int(255*power))+"\n"
+    # #out = bytes(output, 'utf-8')
+    # out = output.encode('utf-8')
+    # try:
+    #     ser.write(out)
+    # except Error as e:
+    #     print(e)
+    #     print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
         
     # set_brush_speed(power)
 def update_brush_zero():
     power = 0
-    output = "b" + str(int(255*power))+"\n"
-    #out = bytes(output, 'utf-8')
-    out = output.encode('utf-8')
-    try:
-        ser.write(out)
-    except Error as e:
-        print(e)
-        print(out)
+    write_serial_b(power)
+    # output = "b" + str(int(255*power))+"\n"
+    # #out = bytes(output, 'utf-8')
+    # out = output.encode('utf-8')
+    # try:
+    #     ser.write(out)
+    # except Error as e:
+    #     print(e)
+    #     print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
     
@@ -257,6 +263,18 @@ def write_test(value):
     ser.write(out)
     print("Writing b = ", value)
     
+def write_serial_d(power):
+    output = "d"+ str(int(255*power))+"\n"
+    out = output.encode('utf-8')
+    ser.write(out)
+    print("writing: ", output)
+    
+def write_serial_b(power):
+    output = "b"+ str(int(255*power))+"\n"
+    out = output.encode('utf-8')
+    ser.write(out)
+    print("writing: ", output)
+    
 def read_serial():
     line = ser.readline().decode('utf-8').rstrip()
     print("Setting Drive Speed: ", line)
@@ -272,7 +290,10 @@ def initialize_robot():
 def main_control_loop():
     while True:
         for i in range(255):
-            write_test(i)
+            update_drive(i)
+            update_brush(i)
+            update_drive_zero()
+            update_brush_zero()
             # read_serial()
         time.sleep(0.5)
         
