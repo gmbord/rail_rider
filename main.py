@@ -247,8 +247,7 @@ def update_linear():
     else:
         stop_linear()
 
-def write_test(value):
-    value = value/255
+def write_serial(value):
     output = "d"+ str(int(255*value))+"\n"
     out = output.encode('utf-8')
     ser.write(out)
