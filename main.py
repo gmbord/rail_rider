@@ -287,7 +287,5 @@ def main_control_loop():
     # keyboard.wait('esc')  
     
     
-Drive_Armed = False
-Brush_Armed = False
 initialize_robot()
 main_control_loop()
