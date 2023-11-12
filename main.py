@@ -168,7 +168,8 @@ def update_drive():
     out = output.encode('utf-8')
     try:
         ser.write(out)
-    except:
+    except Error as e:
+        print(e)
         print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -181,7 +182,8 @@ def update_drive_zero():
     out = output.encode('utf-8')
     try:
         ser.write(out)
-    except:
+    except Error as e:
+        print(e)
         print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -204,7 +206,8 @@ def update_brush():
     out = output.encode('utf-8')
     try:
         ser.write(out)
-    except:
+    except Error as e:
+        print(e)
         print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
@@ -217,7 +220,8 @@ def update_brush_zero():
     out = output.encode('utf-8')
     try:
         ser.write(out)
-    except:
+    except Error as e:
+        print(e)
         print(out)
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
