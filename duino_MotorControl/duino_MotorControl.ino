@@ -43,6 +43,7 @@ void loop(){
   } else if (millis() - time > 750){
     dutyD = 0;
     dutyS = 0;
+    time = millis();
     //Serial.println("TIMED OUT");
   }
 
