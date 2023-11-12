@@ -16,7 +16,7 @@ import keyboard
 import serial
 
 ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
-
+time.sleep(1)
 
 
 
