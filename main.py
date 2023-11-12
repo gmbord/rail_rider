@@ -239,8 +239,11 @@ def main_control_loop():
     
     while True:
         sbus_con = sbus_connected()
+        globals().update(Drive_Armed = Drive_Armed)
+        globals().update(Brush_Armed = Brush_Armed)
         if sbus_con:
             globals().update(Frames_Dropped  = 0)
+            
             update_armed()
             if Drive_Armed:
                 activate_drive_power()
