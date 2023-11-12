@@ -35,7 +35,7 @@ while True:
 	output = 'd' + str(int(255*power))+'\n'
 	out = output.encode('utf-8')
 	ser.write(bytes(out, 'utf-8'))
-	time.sleep(0.05)
+	time.sleep(0.5)
  
 
 	# # read to get the acknowledgement from the Arduino
