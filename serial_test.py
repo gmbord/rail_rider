@@ -31,16 +31,11 @@ ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 
 
 while True:
-
-	print('Telling the Arduino to start blinking...')
-	ser.write(b'balls\n')
-	line = ser.readline().decode('utf-8').rstrip()
-	print(line)
-	time.sleep(0.5)
-	ser.write(b'150\n')
-	line = ser.readline().decode('utf-8').rstrip()
-	print(line)
-	time.sleep(0.5)
+	power = 0.5
+	output = 'd' + str(int(255*power))+'\n'
+	out = output.encode('utf-8')
+	ser.write(bytes(out, 'utf-8'))
+	time.sleep(0.05)
  
 
 	# # read to get the acknowledgement from the Arduino
