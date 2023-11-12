@@ -21,7 +21,7 @@ void loop(){
   
   if (Serial.available() > 0){
     String data = Serial.readStringUntil('\n');
-    Serial.print(data)
+    Serial.println(data);
     if(data[0] == 'd'){
       data.remove(0, 1);
       dutyD = data.toInt();
