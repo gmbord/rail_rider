@@ -37,7 +37,7 @@ print("Setting Drive Speed: ", line)
 time.sleep(0.5)
 
 while True:
-	power = 0.5
+	power = 1
 	output = 'd' + str(int(255*power))+'\n'
 	out = output.encode('utf-8')
 	ser.write(out)
