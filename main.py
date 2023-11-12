@@ -257,6 +257,10 @@ def write_test(value):
     ser.write(out)
     print("Writing b = ", value)
     
+def read_serial():
+    line = ser.readline().decode('utf-8').rstrip()
+    print("Setting Drive Speed: ", line)
+    
 def initialize_robot():
     deactivate_brush_power()
     deactivate_drive_power()
@@ -269,6 +273,7 @@ def main_control_loop():
     while True:
         for i in range(255):
             write_test(i)
+            read_serial()
         time.sleep(0.5)
         
     # while True:
