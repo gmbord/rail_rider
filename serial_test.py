@@ -43,7 +43,7 @@ while True:
 	ser.write(out)
 	line = ser.readline().decode('utf-8').rstrip()
 	print("Setting Drive Speed: ", line)
-	time.sleep(0.05)
+	time.sleep(0.5)
  
 	
  
