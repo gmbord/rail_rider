@@ -204,7 +204,7 @@ def update_brush(test):
         power = 0.3
     else:
         power = 0
-    power = test/5
+    power = test/255
     write_serial_b(power)
     # output = "b" + str(int(255*power))+"\n"
     # #out = bytes(output, 'utf-8')
