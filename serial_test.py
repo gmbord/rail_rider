@@ -28,7 +28,11 @@ ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
 # This trick was learned from:
 # https://github.com/miguelasd688/4-legged-robot-model
 
-
+power = 0.1
+output = 'd' + str(int(255*power))+'\n'
+out = output.encode('utf-8')
+ser.write(out)
+time.sleep(0.5)
 
 while True:
 	power = 0.5
