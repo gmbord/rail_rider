@@ -294,7 +294,7 @@ def main_control_loop():
             update_brush(i)
             update_drive_zero()
             update_brush_zero()
-            # read_serial()
+            read_serial()
             time.sleep(0.05)
         time.sleep(0.5)
         

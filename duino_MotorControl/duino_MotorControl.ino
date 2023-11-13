@@ -26,13 +26,13 @@ void loop(){
       data.remove(0, 1);
       dutyD = data.toInt();
       // Serial.print("Drive speed updated to duty: ");
-      // Serial.println(dutyD);
+      Serial.println(dutyD);
       time = millis();
     } else if(data[0] == 'b'){
       data.remove(0, 1);
       dutyS = data.toInt();
       // Serial.print("Scrub speed updated to duty: ");
-      // Serial.println(dutyS);
+      Serial.println(dutyS);
       time = millis();
      } //else{
     //   Serial.println("You sent me jibberish!");
