@@ -277,7 +277,7 @@ def write_serial_b(power):
     
 def read_serial():
     line = ser.readline().decode('utf-8').rstrip()
-    print("Setting Drive Speed: ", line)
+    # print("Setting Drive Speed: ", line)
     
 def initialize_robot():
     deactivate_brush_power()
