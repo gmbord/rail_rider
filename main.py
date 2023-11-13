@@ -309,7 +309,7 @@ def main_control_loop():
             # update_drive_zero()
             # update_brush_zero()
             
-            time.sleep(0.5)
+            time.sleep(0.05)
         time.sleep(0.5)
         
     # while True:
