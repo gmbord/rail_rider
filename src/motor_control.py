@@ -45,9 +45,9 @@ def set_brush_speed(speed):
     print("BRUSH SPEED SET TO: ", (speed))
     
 def activate_reverse():
-    pi.write(REVERSE, 1)
+    pi.write(REVERSE, 0)
     print("Activating Reverse")
     
 def deactivate_reverse():
-    pi.write(REVERSE, 0)
+    pi.write(REVERSE, 1)
     print("dectivating Reverse")
