@@ -16,11 +16,11 @@ print("DEACTIVATING HORN")
 
 def activate_emergency_light():
     pi.write(LIGHT , 1)
-    print("ACTIVATING EMERGENCY LIGHT")
+    # print("ACTIVATING EMERGENCY LIGHT")
     
 def deactivate_emergency_light():
     pi.write(LIGHT, 0)
-    print("DEACTIVATING EMERGENCY POWER")
+    # print("DEACTIVATING EMERGENCY POWER")
     
 def activate_horn():
     pi.write(HORN, 1)
