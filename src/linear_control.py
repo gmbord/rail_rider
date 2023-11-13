@@ -18,15 +18,15 @@ pi.write(RIGHT1, 0)
 pi.write(RIGHT2, 0)
 
 def raise_linear():
-    pi.write(LEFT1, 0)
-    pi.write(LEFT2, 1)
+    pi.write(LEFT1, 1)
+    pi.write(LEFT2, 0)
     pi.write(RIGHT1, 1)
     pi.write(RIGHT2, 0)
     print("RAISING LINEAR ACTUATORS")
     
 def lower_linear():
-    pi.write(LEFT1, 1)
-    pi.write(LEFT2, 0)
+    pi.write(LEFT1, 0)
+    pi.write(LEFT2, 1)
     pi.write(RIGHT1, 0)
     pi.write(RIGHT2, 1)
     print("LOWERING LINEAR ACTUATORS")
