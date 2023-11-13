@@ -255,7 +255,7 @@ def update_linear():
         
 def update_horn():
     sig = read_sbus_chanel(elevator_chanel)
-    if sig > 1500:
+    if sig < 300:
         activate_horn()
     else:
         deactivate_horn()
