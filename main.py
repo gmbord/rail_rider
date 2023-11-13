@@ -275,10 +275,10 @@ def write_serial_b(power):
         serial_reconnect()
     
 def serial_reconnect():
-    globals().update(ser = serial.Serial("/dev/ttyACM1", 9600, timeout=1))
     output = "jibberish"
     out = output.encode('utf-8')
     try:
+        globals().update(ser = serial.Serial("/dev/ttyACM1", 9600, timeout=1))
         ser.write(out)
         print("Serial Reconnected")
     except:
