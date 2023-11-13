@@ -152,7 +152,7 @@ def update_armed():
     else:
         globals().update(Brush_Armed = False)
         
-def update_drive(test):
+def update_drive():
     # Throttle Stick, LOW: 192, HIOH: 1792
     sig = read_sbus_chanel(drive_trotle_chanel)
     high = 1792
@@ -163,7 +163,6 @@ def update_drive(test):
         power = 1
     if power < 0.02:
         power = 0
-    power = test/255
     write_serial_d(power)
     # output = "d" + str(int(255*power))+"\n"
     # #out = bytes(output, 'utf-8')
@@ -191,7 +190,7 @@ def update_drive_zero():
     # line = ser.readline().decode('utf-8').rstrip()
     # print("Setting Drive Speed: ", line)
 
-def update_brush(test):
+def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
     # power = brush_throttle/100 #max is half power
     sig = read_sbus_chanel(brush_trotle_chanel)
@@ -204,7 +203,6 @@ def update_brush(test):
         power = 0.3
     else:
         power = 0
-    power = test/255
     write_serial_b(power)
     # output = "b" + str(int(255*power))+"\n"
     # #out = bytes(output, 'utf-8')
@@ -302,46 +300,46 @@ def initialize_robot():
     update_drive_zero()
 
 def main_control_loop():
-    while True:
-        for i in range(255):
-            update_drive(i)
-            update_brush(i)
-            # update_drive_zero()
-            # update_brush_zero()
-            
-            time.sleep(0.05)
-        time.sleep(0.5)
-        
     # while True:
-    #     sbus_con = sbus_connected()
-    #     if sbus_con:
-    #         globals().update(Frames_Dropped  = 0)
+    #     for i in range(255):
+    #         update_drive(i)
+    #         update_brush(i)
+    #         # update_drive_zero()
+    #         # update_brush_zero()
             
-    #         update_armed()
-    #         if Drive_Armed:
-    #             activate_drive_power()
-    #             update_drive()
-    #         else:
-    #             deactivate_drive_power()
-    #             update_drive_zero()
-    #         if Brush_Armed:
-    #             activate_brush_power()
-    #             update_brush()
-    #         else:
-    #             deactivate_brush_power()
-    #             update_brush_zero()
-    #         update_linear()
-    #         print("SBUS IS CONNECTED: ", sbus_con)
+    #         time.sleep(0.05)
+    #     time.sleep(0.5)
+        
+    while True:
+        sbus_con = sbus_connected()
+        if sbus_con:
+            globals().update(Frames_Dropped  = 0)
             
-    #     else:
-    #         globals().update(Frames_Dropped  = Frames_Dropped + 1)
-    #         if Frames_Dropped > 50:
-    #             initialize_robot()
-    #             globals().update(Drive_Armed = False)
-    #             globals().update(Brush_Armed = False)
-    #     time.sleep(0.3)
-    #     print("")
-    #     print("*********************************************")
+            update_armed()
+            if Drive_Armed:
+                activate_drive_power()
+                update_drive()
+            else:
+                deactivate_drive_power()
+                update_drive_zero()
+            if Brush_Armed:
+                activate_brush_power()
+                update_brush()
+            else:
+                deactivate_brush_power()
+                update_brush_zero()
+            update_linear()
+            print("SBUS IS CONNECTED: ", sbus_con)
+            
+        else:
+            globals().update(Frames_Dropped  = Frames_Dropped + 1)
+            if Frames_Dropped > 50:
+                initialize_robot()
+                globals().update(Drive_Armed = False)
+                globals().update(Brush_Armed = False)
+        time.sleep(0.01)
+        print("")
+        print("*********************************************")
         
         
     # keyboard.add_hotkey('w', inc_drive_throttle)
