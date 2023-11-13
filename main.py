@@ -253,28 +253,42 @@ def update_linear():
     else:
         stop_linear()
 
-def write_test(value):
-    output = "d"+ str(int(255*value))+"\n"
-    out = output.encode('utf-8')
-    ser.write(out)
-    print("writing d = ", value)
-    output = "b"+ str(int(255*value))+"\n"
-    out = output.encode('utf-8')
-    ser.write(out)
-    print("Writing b = ", value)
     
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
     out = output.encode('utf-8')
-    ser.write(out)
-    print("writing: ", output)
-    
+    try:
+        ser.write(out)
+        print("writing: ", output)
+    except:
+        print("serial disconected writing to drive")
+        print("Reconnecting....")
+        serial_reconnect()
+        
 def write_serial_b(power):
     output = "b"+ str(int(255*power))+"\n"
     out = output.encode('utf-8')
-    ser.write(out)
-    print("writing: ", output)
+    try:
+        ser.write(out)
+        print("writing: ", output)
+    except:
+        print("serial disconected writing to brush")
+        print("Reconnecting....")
+        serial_reconnect()
     
+def serial_reconnect():
+    output = "jibberish"
+    out = output.encode('utf-8')
+    try:
+        ser.write(out)
+        print("Serial Reconnected")
+    except:
+        time.sleep(0.3)
+        print("Reconnecting....")
+        serial_reconnect()
+        
+        
+        
 def read_serial():
     line = ser.readline().decode('utf-8').rstrip()
     print(line)
