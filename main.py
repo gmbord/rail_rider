@@ -357,8 +357,7 @@ def main_control_loop():
                 initialize_robot()
                 globals().update(Drive_Armed = False)
                 globals().update(Brush_Armed = False)
-        print(read_sbus_chanel(rudder_chanel))
-        time.sleep(1)
+        time.sleep(0.05)
         print("")
         print("*********************************************")
         
