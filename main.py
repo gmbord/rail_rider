@@ -291,10 +291,12 @@ def main_control_loop():
     while True:
         for i in range(255):
             update_drive(i)
+            read_serial()
             update_brush(i)
+            read_serial()
             update_drive_zero()
             update_brush_zero()
-            read_serial()
+            
             time.sleep(0.5)
         time.sleep(0.5)
         
