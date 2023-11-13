@@ -165,11 +165,6 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    reverse_sig = read_sbus_chanel(rudder_chanel)
-    if reverse_sig > 1500:
-        activate_reverse()
-    else:
-        deactivate_reverse()
     write_serial_d(power)
     # output = "d" + str(int(255*power))+"\n"
     # #out = bytes(output, 'utf-8')
@@ -264,6 +259,13 @@ def update_horn():
         activate_horn()
     else:
         deactivate_horn()
+        
+def update_reverse():
+    reverse_sig = read_sbus_chanel(rudder_chanel)
+    if reverse_sig < 300:
+        activate_reverse()
+    else:
+        deactivate_reverse()
     
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
@@ -332,6 +334,7 @@ def main_control_loop():
             globals().update(Frames_Dropped  = 0)
             
             update_armed()
+            update_reverse()
             if Drive_Armed:
                 activate_drive_power()
                 update_drive()

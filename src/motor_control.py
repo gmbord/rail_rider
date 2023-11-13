@@ -50,4 +50,4 @@ def activate_reverse():
     
 def deactivate_reverse():
     pi.write(REVERSE, 0)
-    print("Activating Reverse")
+    print("dectivating Reverse")
