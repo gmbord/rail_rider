@@ -354,8 +354,8 @@ def main_control_loop():
                 initialize_robot()
                 globals().update(Drive_Armed = False)
                 globals().update(Brush_Armed = False)
-        time.sleep(1)
         display_sbus()
+        time.sleep(1)
         print("")
         print("*********************************************")
         
