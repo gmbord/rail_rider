@@ -306,8 +306,8 @@ def main_control_loop():
         for i in range(255):
             update_drive(i)
             update_brush(i)
-            update_drive_zero()
-            update_brush_zero()
+            # update_drive_zero()
+            # update_brush_zero()
             
             time.sleep(0.5)
         time.sleep(0.5)
