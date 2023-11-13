@@ -30,6 +30,8 @@ brush_armed_chanel = 7 # Switch 3, LOW: 192, High: 1792
 drive_trotle_chanel = 1 # Throttle Stick, LOW: 192, HIOH: 1792
 brush_trotle_chanel = 8 # Switch 4, LOW: 192, MID: 992, HIGH: 1792
 linear_chanel = 5 #Switch 1, LOW: 192, MID: 992, HIGH: 1792
+rudder_chanel = 4 # Throttle stick x axis
+elevator_chanel = 3 # elevator for horn
 
 drive_throttle = 0
 brush_throttle = 0
@@ -163,6 +165,11 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
+    reverse_sig = read_sbus_chanel(rudder_chanel)
+    if reverse_sig > 1500:
+        activate_reverse()
+    else:
+        deactivate_reverse()
     write_serial_d(power)
     # output = "d" + str(int(255*power))+"\n"
     # #out = bytes(output, 'utf-8')
@@ -250,7 +257,13 @@ def update_linear():
         lower_linear()
     else:
         stop_linear()
-
+        
+def update_horn():
+    sig = read_sbus_chanel(elevator_chanel)
+    if sig > 1500:
+        activate_horn()
+    else:
+        deactivate_horn()
     
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
@@ -332,6 +345,7 @@ def main_control_loop():
                 deactivate_brush_power()
                 update_brush_zero()
             update_linear()
+            update_horn()
             print("SBUS IS CONNECTED: ", sbus_con)
             
         else:
