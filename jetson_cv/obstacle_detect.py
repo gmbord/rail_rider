@@ -1,6 +1,6 @@
 import numpy
 import cv2
-from .pyrealsense2 import *
+import pyrealsense2
 
 fx = 942.8          # lense focal length
 baseline = 54.8     # distance in mm between the two cameras
