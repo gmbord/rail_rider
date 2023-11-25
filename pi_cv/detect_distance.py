@@ -3,7 +3,7 @@ import pyrealsense2
 from realsense_depth import *
 import time
 
-point = (400, 300)
+point = (320, 240)
 scary_range = 1500
 # def show_distance(event, x, y, args, params):
 #     global point
