@@ -22,7 +22,7 @@ while True:
     distance = depth_frame[point[1], point[0]]
     # if distance > 0:
     print(distance)
-    if distance < 1500:
+    if distance < scary_range and distance > 0:
         print("$$$$$$$$ KILLLLLL $$$$$$$$$$$$$$$")
     time.sleep(0.02)
 
