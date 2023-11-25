@@ -11,7 +11,7 @@ scary_range = 1500
 
 # Initialize Camera Intel Realsense
 dc = DepthCamera()
-
+pyrealsense2.hole_filling_filter(2)
 
 
 while True:
