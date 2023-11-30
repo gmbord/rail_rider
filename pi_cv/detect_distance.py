@@ -13,8 +13,8 @@ scary_range = 1500
 # Initialize Camera Intel Realsense
 ctx = rs.context()
 devices = ctx.query_devices()
-print devices[0]
-print devices[1]
+print(devices[0])
+print(devices[1])
 
 # dc1 = DepthCamera()
 # dc2 = DepthCamera()
