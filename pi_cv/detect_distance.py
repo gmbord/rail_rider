@@ -47,8 +47,8 @@ def get_frame(piplinenum):
 
 
 while True:
-    ret, depth_frame, color_frame = pipeline_1.get_frame()
-    ret2, depth_frame2, color_frame2 = pipeline_2.get_frame()
+    ret, depth_frame, color_frame = get_frame(pipeline_1)
+    ret2, depth_frame2, color_frame2 = get_frame(pipeline_2)
     # Show distance for a specific point
     # cv2.circle(color_frame, point, 4, (0, 0, 255))
     distance = depth_frame[point[1], point[0]]
