@@ -35,13 +35,13 @@ pipeline_2.start(config_2)
 def get_frame(pipeline):
     frames = pipeline.wait_for_frames()
     depth_frame = frames.get_depth_frame()
-    color_frame = frames.get_color_frame()
+    # color_frame = frames.get_color_frame()
 
     depth_image = np.asanyarray(depth_frame.get_data())
-    color_image = np.asanyarray(color_frame.get_data())
-    if not depth_frame or not color_frame:
-        return False, None, None
-    return True, depth_image, color_image
+    # color_image = np.asanyarray(color_frame.get_data())
+    if not depth_frame:
+        return False, None
+    return True, depth_image
 
 # dc1 = DepthCamera()
 # dc2 = DepthCamera()
@@ -49,7 +49,7 @@ def get_frame(pipeline):
 
 
 while True:
-    ret, depth_frame, color_frame = get_frame(pipeline_1)
+    ret, depth_frame = get_frame(pipeline_1)
     # ret2, depth_frame2, color_frame2 = get_frame(pipeline_2)
     # Show distance for a specific point
     # cv2.circle(color_frame, point, 4, (0, 0, 255))
