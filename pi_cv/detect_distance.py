@@ -16,6 +16,20 @@ devices = ctx.query_devices()
 print(devices[0])
 print(devices[1])
 
+# Configure depth and color streams...
+# ...from Camera 1
+pipeline_1 = rs.pipeline()
+config_1 = rs.config()
+config_1.enable_device('242322075040')
+config_1.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+config_1.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+# ...from Camera 2
+pipeline_2 = rs.pipeline()
+config_2 = rs.config()
+config_2.enable_device('238222072344')
+config_2.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+config_2.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+
 # dc1 = DepthCamera()
 # dc2 = DepthCamera()
 # pyrealsense2.hole_filling_filter(2)
