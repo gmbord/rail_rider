@@ -2,6 +2,7 @@ import cv2
 import pyrealsense2
 from realsense_depth import *
 import time
+import numpy as np
 
 point = (320, 240)
 scary_range = 1500
@@ -10,12 +11,14 @@ scary_range = 1500
 #     point = (x, y)
 
 # Initialize Camera Intel Realsense
-dc = DepthCamera()
+
+dc1 = DepthCamera()
+dc2 = DepthCamera()
 pyrealsense2.hole_filling_filter(2)
 
 
 while True:
-    ret, depth_frame, color_frame = dc.get_frame()
+    ret, depth_frame, color_frame = dc1.get_frame()
 
     # Show distance for a specific point
     # cv2.circle(color_frame, point, 4, (0, 0, 255))
