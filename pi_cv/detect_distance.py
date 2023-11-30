@@ -47,21 +47,25 @@ def get_frame(pipeline):
 # dc2 = DepthCamera()
 pyrealsense2.hole_filling_filter(2)
 
+def get_distance_1():
+    ret, depth_frame = get_frame(pipeline_1)
+    distance = depth_frame[point[1], point[0]]
+    print("DISTANCE 1 ", distance)
+    return(distance)
+
+def get_distance_2():
+    ret, depth_frame = get_frame(pipeline_2)
+    distance = depth_frame[point[1], point[0]]
+    print("DISTANCE 2 ", distance)
+    return(distance)
 
 while True:
-    ret, depth_frame = get_frame(pipeline_1)
-    # ret2, depth_frame2, color_frame2 = get_frame(pipeline_2)
-    # Show distance for a specific point
-    # cv2.circle(color_frame, point, 4, (0, 0, 255))
-    distance = depth_frame[point[1], point[0]]
-    # distance2 = depth_frame2[point[1], point[0]]
-    # if distance > 0:
-    print("DISTANCE 1 ", distance)
-    # print("DISTANCE 2 ", distance2)
-    if distance < scary_range and distance > 0:
+    distance_1 = get_distance_1()
+    distance_2 = get_distance_2()
+    if distance_1 < scary_range and distance_1 > 0:
         print("$$$$$$$$ KILLLLLL  1   $$$$$$$$$$$$$$$")
-    # if distance2 < scary_range and distance > 0:
-    #     print("$$$$$$$$ KILLLLLL  2   $$$$$$$$$$$$$$$")
+    if distance_2 < scary_range and distance_2 > 0:
+        print("$$$$$$$$ KILLLLLL  2   $$$$$$$$$$$$$$$")
     time.sleep(0.02)
 
 #     # cv2.putText(color_frame, "{}mm".format(distance), (point[0], point[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
