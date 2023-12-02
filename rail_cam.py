@@ -1,10 +1,21 @@
-from picamera2 import Picamera2, Preview
-import time
+import cv2
 
-picam2 = Picamera2()
-camera_config = picam2.create_preview_configuration()
-picam2.configure(camera_config)
-picam2.start_preview(Preview.DRM)
-picam2.start()
-time.sleep(2)
-picam2.capture_file("test.jpg")
+# Initialize the USB camera (assuming it's connected and recognized)
+camera = cv2.VideoCapture(0)  # Use 0 for the default camera
+
+if not camera.isOpened():
+    print("Cannot open camera")
+    exit()
+
+# Capture a frame
+ret, frame = camera.read()
+
+if not ret:
+    print("Failed to capture frame")
+    exit()
+
+# Save the captured frame as an image
+cv2.imwrite("test.jpg", frame)
+
+# Release the camera
+camera.release()
