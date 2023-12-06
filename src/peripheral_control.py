@@ -3,7 +3,7 @@ import pigpio
 
 pi = pigpio.pi()
 
-LIGHT = 21
+LIGHT = 16
 HORN = 20
 
 pi.set_mode(LIGHT , pigpio.OUTPUT)

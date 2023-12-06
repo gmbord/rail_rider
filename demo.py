@@ -6,12 +6,11 @@ sys.path.append("/home/redpi/.local/lib/pyhton3.11/site-packages")
 
 
 import time
-import RPi.GPIO as GPIO
 from rc import *
 from motor_control import *
 from linear_control import *
 from contactor_control import *
-from elight_control import *
+from peripheral_control import *
 import keyboard
 import serial
 
