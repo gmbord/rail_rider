@@ -33,7 +33,6 @@ try:
     ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
     time.sleep(1)
 except:
-    ser.close()
     serial_reconnect()
 
 
