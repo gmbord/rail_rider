@@ -17,6 +17,18 @@ from gobutton_control import *
 import keyboard
 import serial
 
+def serial_reconnect():
+    output = "jibberish"
+    out = output.encode('utf-8')
+    try:
+        globals().update(ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1))
+        ser.write(out)
+        print("Serial Reconnected")
+    except:
+        time.sleep(0.3)
+        print("Reconnecting....")
+        serial_reconnect()
+
 try:
     ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
     time.sleep(1)
@@ -277,17 +289,7 @@ def write_serial_b(power):
         ser.close()
         serial_reconnect()
     
-def serial_reconnect():
-    output = "jibberish"
-    out = output.encode('utf-8')
-    try:
-        globals().update(ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1))
-        ser.write(out)
-        print("Serial Reconnected")
-    except:
-        time.sleep(0.3)
-        print("Reconnecting....")
-        serial_reconnect()
+
         
         
         
