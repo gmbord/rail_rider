@@ -1,6 +1,7 @@
 import cv2
 import time
 import numpy as np
+from clean_quantification import clean_quantification
 
 camera = cv2.VideoCapture(0)  # Use 0 for the default camera
 
@@ -15,18 +16,19 @@ while True:
         print("Failed to capture frame")
         break
 
-    # Calculate the average pixel value
-    average_pixel_value = np.mean(frame)
-    print(f"Average pixel value: {average_pixel_value}")
-
     # Assign the captured frame to the variable L_front
     L_front = frame
 
-    # Save the captured frame as 'test.jpg' (optional)
-    cv2.imwrite("test.jpg", frame)
+    # # Save the captured frame as 'test.jpg' (optional)
+    # cv2.imwrite("test.jpg", frame)
 
-    # Display the captured frame (optional)
-    cv2.imshow("Frame", frame)
+    # # Display the captured frame (optional)
+    # cv2.imshow("Frame", frame)
+
+    clean_val = clean_quantification(frame)
+
+    print(clean_val)
+
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
