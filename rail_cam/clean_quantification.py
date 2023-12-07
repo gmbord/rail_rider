@@ -50,5 +50,5 @@ def clean_quantification(image):
 
 
 if __name__ == "__main__":
-    test_image = cv2.imread("images\\clean3.jpg")
+    test_image = cv2.imread("images/IMG_5157.jpg")
     clean_quantification(test_image)
