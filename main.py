@@ -242,12 +242,15 @@ def update_horn():
         
 def update_brakes():
     sig = read_sbus_chanel(drive_trotle_chanel)
+    
     if sig < 215:
         activate_brakes()
-        if REVERSE:
+        reverse_sig = read_sbus_chanel(rudder_chanel)
+        if reverse_sig < 300:
             activate_rear_brakelights()
         else:
             activate_front_brakelights()
+            
     else:
         deactivate_rear_brakelights()
         deactivate_front_brakelights()
