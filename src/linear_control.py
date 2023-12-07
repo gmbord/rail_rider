@@ -35,13 +35,13 @@ def stop_linear():
     print("STOPPING LINEAR ACTUATORS")
     
 def release_brakes():
-    pi.write(BRAKE1, 1)
-    pi.write(BRAKE2, 0)
+    pi.write(BRAKE1, 0)
+    pi.write(BRAKE2, 1)
     print("RELEASING BRAKES")
     
 def activate_brakes():
-    pi.write(BRAKE1, 0)
-    pi.write(BRAKE2, 1)
+    pi.write(BRAKE1, 1)
+    pi.write(BRAKE2, 0)
     print("ACTIVATING BRAKES")
 
 def stop_brakes():
