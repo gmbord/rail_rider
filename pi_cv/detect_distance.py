@@ -15,9 +15,7 @@ pi.set_mode(FRONT_CAM , pigpio.OUTPUT)
 pi.set_mode(BACK_CAM , pigpio.OUTPUT)
 
 pi.write(FRONT_CAM , 0)
-print("DEACTIVATING EMERGENCY LIGHT")
 pi.write(BACK_CAM , 0)
-print("DEACTIVATING HORN")
 
 point = (320, 240)
 scary_range = 1500
