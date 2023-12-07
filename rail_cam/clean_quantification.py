@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import time
 
 
 def clean_quantification(image):
@@ -10,7 +11,13 @@ def clean_quantification(image):
     returns:
         a black and white image formatted in RGB color space.
     """
-    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    start_time = time.time()
+
+    resized_dimensions = (640, 360)
+
+    downsized_image = cv2.resize(image, resized_dimensions)
+
+    hsv_image = cv2.cvtColor(downsized_image, cv2.COLOR_BGR2HSV)
 
     browns = []
     for row in hsv_image:
@@ -32,10 +39,12 @@ def clean_quantification(image):
 
     average_pixel_value = np.mean(frame)
     print(f"Average pixel value: {average_pixel_value}")
+    end_time = time.time()
+    print(f"time taken = {end_time - start_time}")
 
     # comparison = np.hstack(
     #     (
-    #         cv2.resize(image, (0, 0), None, 0.25, 0.25),
+    #         cv2.resize(downsized_image, (0, 0), None, 0.25, 0.25),
     #         cv2.resize(
     #             cv2.cvtColor(browns, cv2.COLOR_GRAY2BGR), (0, 0), None, 0.25, 0.25
     #         ),
@@ -50,5 +59,5 @@ def clean_quantification(image):
 
 
 if __name__ == "__main__":
-    test_image = cv2.imread("images/IMG_5157.jpg")
+    test_image = cv2.imread("images/IMG_5158.jpg")
     clean_quantification(test_image)
