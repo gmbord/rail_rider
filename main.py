@@ -6,14 +6,28 @@ sys.path.append("/home/redpi/.local/lib/pyhton3.11/site-packages")
 
 
 import time
-import RPi.GPIO as GPIO
 from rc import *
 from motor_control import *
 from linear_control import *
 from contactor_control import *
-from elight_control import *
+from peripheral_control import *
+from headlight_control import *
+from stereocam_control import *
+from gobutton_control import *
 import keyboard
 import serial
+
+def serial_reconnect():
+    output = "jibberish"
+    out = output.encode('utf-8')
+    try:
+        globals().update(ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1))
+        ser.write(out)
+        print("Serial Reconnected")
+    except:
+        time.sleep(0.3)
+        print("Reconnecting....")
+        serial_reconnect()
 
 try:
     ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
@@ -30,6 +44,7 @@ Brush_Armed = False
 
 Frames_Dropped = 0
 
+# RC CONTROLLER CHANELS
 drive_armed_chanel = 6 # Switch 2, LOW: 192, High: 1792 
 brush_armed_chanel = 7 # Switch 3, LOW: 192, High: 1792 
 drive_trotle_chanel = 1 # Throttle Stick, LOW: 192, HIOH: 1792
@@ -40,113 +55,115 @@ elevator_chanel = 3 # elevator for horn
 
 drive_throttle = 0
 brush_throttle = 0
-elight_on = False
+elight_on = True
 linear_state = 0
 
-def inc_drive_throttle():
-    if Drive_Armed:
-        if drive_throttle < 100:
-            globals().update(drive_throttle = drive_throttle+1)
-        update_drive(drive_throttle)
-        print("Drive Throttle", drive_throttle)
-    else:
-        print("Drive Disarmed")
+REVERSE = False
+
+# def inc_drive_throttle():
+#     if Drive_Armed:
+#         if drive_throttle < 100:
+#             globals().update(drive_throttle = drive_throttle+1)
+#         update_drive(drive_throttle)
+#         print("Drive Throttle", drive_throttle)
+#     else:
+#         print("Drive Disarmed")
     
-def dec_drive_throttle():
-    if Drive_Armed:
-        if drive_throttle > 0:
-            globals().update(drive_throttle = drive_throttle-1)
-        update_drive(drive_throttle)
-        print("Drive Throttle", drive_throttle)
-    else:
-        print("Drive Disarmed")
+# def dec_drive_throttle():
+#     if Drive_Armed:
+#         if drive_throttle > 0:
+#             globals().update(drive_throttle = drive_throttle-1)
+#         update_drive(drive_throttle)
+#         print("Drive Throttle", drive_throttle)
+#     else:
+#         print("Drive Disarmed")
         
-def drive_throttle_zero():
-    if Drive_Armed:
-        if drive_throttle > 0:
-            globals().update(drive_throttle = 0)
-        update_drive(drive_throttle)
-        print("Drive Throttle", drive_throttle)
-    else:
-        print("Drive Disarmed")
+# def drive_throttle_zero():
+#     if Drive_Armed:
+#         if drive_throttle > 0:
+#             globals().update(drive_throttle = 0)
+#         update_drive(drive_throttle)
+#         print("Drive Throttle", drive_throttle)
+#     else:
+#         print("Drive Disarmed")
     
-def kill_drive_throttle():
-    globals().update(drive_throttle = 0)
-    globals().update(Drive_Armed = False)
-    update_drive(drive_throttle)
-    deactivate_drive_power()
-    print("Drive Throttle", drive_throttle)
-    print("Drive Disarmed")
+# def kill_drive_throttle():
+#     globals().update(drive_throttle = 0)
+#     globals().update(Drive_Armed = False)
+#     update_drive(drive_throttle)
+#     deactivate_drive_power()
+#     print("Drive Throttle", drive_throttle)
+#     print("Drive Disarmed")
     
-def inc_brush_throttle():
-    if Brush_Armed:
-        if brush_throttle < 50:
-            globals().update(brush_throttle = brush_throttle+1)
-        update_brush(brush_throttle)
-        print("Brush Throttle", brush_throttle)
-    else:
-        print("Brush Disarmed")
+# def inc_brush_throttle():
+#     if Brush_Armed:
+#         if brush_throttle < 50:
+#             globals().update(brush_throttle = brush_throttle+1)
+#         update_brush(brush_throttle)
+#         print("Brush Throttle", brush_throttle)
+#     else:
+#         print("Brush Disarmed")
     
-def dec_brush_throttle():
-    if Brush_Armed:
-        if brush_throttle > 0:
-            globals().update(brush_throttle = brush_throttle-1)
-        update_brush(brush_throttle)
-        print("Brush Throttle" , brush_throttle)
-    else:
-        print("Brush Disarmed")
+# def dec_brush_throttle():
+#     if Brush_Armed:
+#         if brush_throttle > 0:
+#             globals().update(brush_throttle = brush_throttle-1)
+#         update_brush(brush_throttle)
+#         print("Brush Throttle" , brush_throttle)
+#     else:
+#         print("Brush Disarmed")
         
-def brush_throttle_zero():
-    if Brush_Armed:
-        if brush_throttle > 0:
-            globals().update(brush_throttle = 0)
-        update_brush(brush_throttle)
-        print("Brush Throttle" , brush_throttle)
-    else:
-        print("Brush Disarmed")
+# def brush_throttle_zero():
+#     if Brush_Armed:
+#         if brush_throttle > 0:
+#             globals().update(brush_throttle = 0)
+#         update_brush(brush_throttle)
+#         print("Brush Throttle" , brush_throttle)
+#     else:
+#         print("Brush Disarmed")
     
-def kill_brush_throttle():
-    globals().update(brush_throttle = 0)
-    globals().update(Brush_Armed = False)
-    update_brush(brush_throttle)
-    deactivate_brush_power()
-    print("Brush Throttle", brush_throttle)
-    print("Brush Disarmed")
+# def kill_brush_throttle():
+#     globals().update(brush_throttle = 0)
+#     globals().update(Brush_Armed = False)
+#     update_brush(brush_throttle)
+#     deactivate_brush_power()
+#     print("Brush Throttle", brush_throttle)
+#     print("Brush Disarmed")
     
-def arm_brush():
-    globals().update(Brush_Armed = True)
-    activate_brush_power()
-    print("Brush Armed")
+# def arm_brush():
+#     globals().update(Brush_Armed = True)
+#     activate_brush_power()
+#     print("Brush Armed")
     
-def arm_drive():
-    globals().update(Drive_Armed = True)
-    activate_drive_power()
-    print("Drive Armed")
+# def arm_drive():
+#     globals().update(Drive_Armed = True)
+#     activate_drive_power()
+#     print("Drive Armed")
     
-def turn_elight_on():
-    globals().update(elight_on = True)
-    update_elight(elight_on)
-    print("Emergency Light On")
+# def turn_elight_on():
+#     globals().update(elight_on = True)
+#     update_elight(elight_on)
+#     print("Emergency Light On")
     
-def turn_elight_off():
-    globals().update(elight_on = False)
-    update_elight(elight_on)
-    print("Emergency Light Off")
+# def turn_elight_off():
+#     globals().update(elight_on = False)
+#     update_elight(elight_on)
+#     print("Emergency Light Off")
     
-def set_linear_up():
-    globals().update(linear_state = 1)
-    update_linear(linear_state)
-    print("Linear State: Raising")
+# def set_linear_up():
+#     globals().update(linear_state = 1)
+#     update_linear(linear_state)
+#     print("Linear State: Raising")
     
-def set_linear_down():
-    globals().update(linear_state = -1)
-    update_linear(linear_state)
-    print("Linear State: Lowering")
+# def set_linear_down():
+#     globals().update(linear_state = -1)
+#     update_linear(linear_state)
+#     print("Linear State: Lowering")
     
-def set_linear_stop():
-    globals().update(linear_state = 0)
-    update_linear(linear_state)
-    print("Linear State: Stopping")
+# def set_linear_stop():
+#     globals().update(linear_state = 0)
+#     update_linear(linear_state)
+#     print("Linear State: Stopping")
     
 def update_armed():
     if read_sbus_chanel(drive_armed_chanel) > 1500:
@@ -171,31 +188,10 @@ def update_drive():
     if power < 0.02:
         power = 0
     write_serial_d(power)
-    # output = "d" + str(int(255*power))+"\n"
-    # #out = bytes(output, 'utf-8')
-    # out = output.encode('utf-8')
-    # try:
-    #     ser.write(out)
-    # except Error as e:
-    #     print(e)
-    #     print(out)
-    # line = ser.readline().decode('utf-8').rstrip()
-    # print("Setting Drive Speed: ", line)
-    # set_drive_speed(power)
     
 def update_drive_zero():
     power = 0
     write_serial_d(power)
-    # output = "d"+ str(int(255*power))+"\n"
-    # #out = bytes(output, 'utf-8')
-    # out = output.encode('utf-8')
-    # try:
-    #     ser.write(out)
-    # except Error as e:
-    #     print(e)
-    #     print(out)
-    # line = ser.readline().decode('utf-8').rstrip()
-    # print("Setting Drive Speed: ", line)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
@@ -211,31 +207,10 @@ def update_brush():
     else:
         power = 0
     write_serial_b(power)
-    # output = "b" + str(int(255*power))+"\n"
-    # #out = bytes(output, 'utf-8')
-    # out = output.encode('utf-8')
-    # try:
-    #     ser.write(out)
-    # except Error as e:
-    #     print(e)
-    #     print(out)
-    # line = ser.readline().decode('utf-8').rstrip()
-    # print("Setting Drive Speed: ", line)
-        
-    # set_brush_speed(power)
+    
 def update_brush_zero():
     power = 0
     write_serial_b(power)
-    # output = "b" + str(int(255*power))+"\n"
-    # #out = bytes(output, 'utf-8')
-    # out = output.encode('utf-8')
-    # try:
-    #     ser.write(out)
-    # except Error as e:
-    #     print(e)
-    #     print(out)
-    # line = ser.readline().decode('utf-8').rstrip()
-    # print("Setting Drive Speed: ", line)
     
 def update_elight(elight_on):
     if elight_on:
@@ -265,13 +240,34 @@ def update_horn():
     else:
         deactivate_horn()
         
+def update_brakes():
+    sig = read_sbus_chanel(drive_trotle_chanel)
+    
+    if sig < 215:
+        activate_brakes()
+        reverse_sig = read_sbus_chanel(rudder_chanel)
+        if reverse_sig < 300:
+            activate_rear_brakelights()
+        else:
+            activate_front_brakelights()
+            
+    else:
+        deactivate_rear_brakelights()
+        deactivate_front_brakelights()
+        release_brakes()
+        
 def update_reverse():
     reverse_sig = read_sbus_chanel(rudder_chanel)
     if reverse_sig < 300:
         activate_reverse()
+        activate_rear_headlights()
+        REVERSE = True
     else:
         deactivate_reverse()
-    
+        activate_front_headlights()
+        REVERSE = False
+        
+
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
     out = output.encode('utf-8')
@@ -296,17 +292,7 @@ def write_serial_b(power):
         ser.close()
         serial_reconnect()
     
-def serial_reconnect():
-    output = "jibberish"
-    out = output.encode('utf-8')
-    try:
-        globals().update(ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1))
-        ser.write(out)
-        print("Serial Reconnected")
-    except:
-        time.sleep(0.3)
-        print("Reconnecting....")
-        serial_reconnect()
+
         
         
         
@@ -354,6 +340,12 @@ def main_control_loop():
                 update_brush_zero()
             update_linear()
             update_horn()
+            update_elight(True)
+            front_stereo = get_front_stereo()
+            rear_stereo = get_rear_stereo()
+            go_button = get_go_button()
+            update_brakes()
+            
             print("SBUS IS CONNECTED: ", sbus_con)
             
         else:
@@ -386,6 +378,7 @@ def main_control_loop():
     # keyboard.wait('esc')  
     
 
-
+release_brakes()
+time.sleep(2)
 initialize_robot()
 main_control_loop()

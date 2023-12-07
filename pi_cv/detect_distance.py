@@ -3,9 +3,25 @@ import pyrealsense2
 from realsense_depth import *
 import time
 import numpy as np
+import pigpio
+
+FRONT_CAM = 17
+BACK_CAM = 27
+
+pi = pigpio.pi()
+
+pi.set_mode(FRONT_CAM , pigpio.OUTPUT)
+pi.set_mode(BACK_CAM , pigpio.OUTPUT)
+
+pi.write(FRONT_CAM , 0)
+print("DEACTIVATING EMERGENCY LIGHT")
+pi.write(BACK_CAM , 0)
+print("DEACTIVATING HORN")
 
 point = (320, 240)
 scary_range = 1500
+consecutive_front = 0
+consecutive_back = 0
 # def show_distance(event, x, y, args, params):
 #     global point
 #     point = (x, y)
@@ -63,9 +79,27 @@ while True:
     distance_1 = get_distance_1()
     distance_2 = get_distance_2()
     if distance_1 < scary_range and distance_1 > 0:
-        print("$$$$$$$$ KILLLLLL  1   $$$$$$$$$$$$$$$")
+        consecutive_front += 1
+    else:
+        consecutive_front = 0
+        
     if distance_2 < scary_range and distance_2 > 0:
-        print("$$$$$$$$ KILLLLLL  2   $$$$$$$$$$$$$$$")
+        consecutive_back += 1
+    else:
+        consecutive_back = 0
+        
+    if consecutive_front > 2:
+        pi.write(FRONT_CAM , 1)
+        print("$$$$$$$$ KILLLLLL  FRONT   $$$$$$$$$$$$$$$")
+    else:
+        pi.write(FRONT_CAM , 0)
+        
+    if consecutive_back > 2:
+        pi.write(BACK_CAM , 1)
+        print("$$$$$$$$ KILLLLLL  BACK   $$$$$$$$$$$$$$$")
+    else:
+        pi.write(BACK_CAM , 0)
+        
     time.sleep(0.02)
 
 #     # cv2.putText(color_frame, "{}mm".format(distance), (point[0], point[1] - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 2)
