@@ -4,6 +4,7 @@ from realsense_depth import *
 import time
 import numpy as np
 import pigpio
+from ultralytics import YOLO
 
 FRONT_CAM = 17
 BACK_CAM = 27
