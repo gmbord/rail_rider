@@ -497,22 +497,33 @@ def reset_demo():
     globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
     
+def begin_state():
+    if State == 1:
+        state_1()
+    if State == 2:
+        state_2()
+    if State == 3:
+        state_3
+    if State == 4:
+        globals().update(State = 1)
+        demo()
+    
 def demo():
     keyboard.add_hotkey('0', kill)
     initialize_robot()
     demo_running = True
+    keyboard.add_hotkey('1', begin_state)
     # wait for first keypress and start state 1
-    if demo_running:
-        if State == 1:
-            keyboard.add_hotkey('1', state_1)
-        if State == 2:
-            keyboard.add_hotkey('2', state_2)
-        if State == 3:
-            keyboard.add_hotkey('3', state_3)
-        if State == 4:
-            demo_running = False
+    # if demo_running:
+    #     if State == 1:
+    #         keyboard.add_hotkey('1', state_1)
+    #     if State == 2:
+    #         keyboard.add_hotkey('2', state_2)
+    #     if State == 3:
+    #         keyboard.add_hotkey('3', state_3)
+    #     if State == 4:
+    #         demo_running = False
     keyboard.wait('esc')  
-    demo()
     
     
 release_brakes()
