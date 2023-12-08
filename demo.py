@@ -412,7 +412,7 @@ def state_1():
     lower_linear()
     time.sleep(1.5)
     stop_linear()
-    globals().update(State  = State + 1)
+    globals().update(State  = 2)
     
 def state_2():
     print("BEGINGIN STATE 2")
@@ -443,7 +443,7 @@ def state_2():
     raise_linear()
     time.sleep(2)
     stop_linear()
-    globals().update(State  = State + 1)
+    globals().update(State  = 3)
     
 def state_3():
     print("BEGINGIN STATE 3")
@@ -491,7 +491,7 @@ def state_3():
     stop_brakes()
     raise_linear()
     time.sleep(2)
-    globals().update(State  = State + 1)
+    globals().update(State  = 4)
     
 def reset_demo():
     keyboard.add_hotkey('1', demo)
