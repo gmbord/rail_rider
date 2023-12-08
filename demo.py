@@ -506,7 +506,6 @@ def begin_state():
         state_3
     if State == 4:
         globals().update(State = 1)
-        demo()
     
 def demo():
     keyboard.add_hotkey('0', kill)
