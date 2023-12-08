@@ -413,7 +413,6 @@ def state_1():
     time.sleep(1.5)
     stop_linear()
     globals().update(State  = 2)
-    demo()
     
 def state_2():
     print("BEGINGIN STATE 2")
@@ -445,7 +444,6 @@ def state_2():
     time.sleep(2)
     stop_linear()
     globals().update(State  = 3)
-    demo()
     
 def state_3():
     print("BEGINGIN STATE 3")
@@ -494,7 +492,6 @@ def state_3():
     raise_linear()
     time.sleep(2)
     globals().update(State  = 4)
-    demo()
     
 def reset_demo():
     globals().update(State  = 1)
