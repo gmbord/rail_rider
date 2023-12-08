@@ -413,6 +413,7 @@ def state_1():
     time.sleep(1.5)
     stop_linear()
     globals().update(State  = 2)
+    demo()
     
 def state_2():
     print("BEGINGIN STATE 2")
@@ -444,6 +445,7 @@ def state_2():
     time.sleep(2)
     stop_linear()
     globals().update(State  = 3)
+    demo()
     
 def state_3():
     print("BEGINGIN STATE 3")
@@ -492,8 +494,10 @@ def state_3():
     raise_linear()
     time.sleep(2)
     globals().update(State  = 4)
+    demo()
     
 def reset_demo():
+    globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
     
 def demo():
@@ -501,7 +505,7 @@ def demo():
     initialize_robot()
     demo_running = True
     # wait for first keypress and start state 1
-    while demo_running:
+    if demo_running:
         if State == 1:
             keyboard.add_hotkey('1', state_1)
         if State == 2:
