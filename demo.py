@@ -512,7 +512,7 @@ def demo():
         if State == 4:
             demo_running = False
     keyboard.wait('esc')  
-    reset_demo()
+    demo()
     
     
 release_brakes()
