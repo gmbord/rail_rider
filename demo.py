@@ -402,6 +402,7 @@ def chooo():
     deactivate_horn()
 
 def state_1():
+    print("BEGINGIN STATE 1")
     # enable brush contactor
     activate_brush_power()
     time.sleep(0.3)
@@ -414,6 +415,7 @@ def state_1():
     globals().update(State  = State + 1)
     
 def state_2():
+    print("BEGINGIN STATE 2")
     # Activate Drive Contactor
     activate_drive_power()
     time.sleep(0.3)
@@ -444,6 +446,7 @@ def state_2():
     globals().update(State  = State + 1)
     
 def state_3():
+    print("BEGINGIN STATE 3")
     # Flip Head Lights and reverse
     activate_rear_headlights()
     activate_reverse()
