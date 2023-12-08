@@ -514,6 +514,7 @@ def demo():
             keyboard.add_hotkey('1', state_3)
         if State == 4:
             demo_running = False
+    keyboard.wait('esc')  
     reset_demo()
     
     
