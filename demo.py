@@ -506,9 +506,9 @@ def demo():
         if State == 1:
             keyboard.add_hotkey('1', state_1)
         if State == 2:
-            keyboard.add_hotkey('1', state_2)
+            keyboard.add_hotkey('2', state_2)
         if State == 3:
-            keyboard.add_hotkey('1', state_3)
+            keyboard.add_hotkey('3', state_3)
         if State == 4:
             demo_running = False
     keyboard.wait('esc')  
