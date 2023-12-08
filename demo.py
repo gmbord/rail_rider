@@ -316,7 +316,7 @@ def initialize_robot():
     set_drive_power(0.0)
     deactivate_horn()
     activate_front_headlights()
-    activate_brakes()
+    release_brakes()
     activate_front_brakelights()
     
 
@@ -515,7 +515,6 @@ def demo():
     
 release_brakes()
 time.sleep(2)
-initialize_robot()
 demo()
 
 
