@@ -501,7 +501,6 @@ def reset_demo():
     keyboard.add_hotkey('1', demo)
     
 def begin_state():
-    keyboard.wait('esc') 
     if State == 1:
         state_1()
     elif State == 2:
