@@ -500,11 +500,11 @@ def reset_demo():
 def begin_state():
     if State == 1:
         state_1()
-    if State == 2:
+    elif State == 2:
         state_2()
-    if State == 3:
+    elif State == 3:
         state_3
-    if State == 4:
+    elif State == 4:
         globals().update(State = 1)
     
 def demo():
