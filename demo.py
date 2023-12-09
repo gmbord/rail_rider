@@ -527,7 +527,7 @@ def demo():
     #         demo_running = False
     # keyboard.wait('esc')  
     while demo_running:
-        pass
+        keyboard.add_hotkey('esc', reset_demo)
     
     
 release_brakes()
