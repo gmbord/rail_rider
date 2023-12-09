@@ -402,7 +402,6 @@ def chooo():
     deactivate_horn()
 
 def state_1():
-    keyboard.wait('esc')
     print("BEGINGIN STATE 1")
     # enable brush contactor
     activate_brush_power()
@@ -417,7 +416,6 @@ def state_1():
     print("end of 1 STATE:    ", State)
     
 def state_2():
-    keyboard.wait('esc') 
     print("BEGINGIN STATE 2")
     # Activate Drive Contactor
     activate_drive_power()
@@ -450,7 +448,6 @@ def state_2():
     print("end of 2 STATE:    ", State)
     
 def state_3():
-    keyboard.wait('esc') 
     print("BEGINGIN STATE 3")
     # Flip Head Lights and reverse
     activate_rear_headlights()
@@ -504,6 +501,7 @@ def reset_demo():
     keyboard.add_hotkey('1', demo)
     
 def begin_state():
+    keyboard.wait('esc') 
     if State == 1:
         state_1()
     elif State == 2:
