@@ -525,7 +525,9 @@ def demo():
     #         keyboard.add_hotkey('3', state_3)
     #     if State == 4:
     #         demo_running = False
-    keyboard.wait('esc')  
+    # keyboard.wait('esc')  
+    while demo_running:
+        pass
     
     
 release_brakes()
