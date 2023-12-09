@@ -390,7 +390,7 @@ def main_control_loop():
     # keyboard.wait('esc')  
 def kill():
     initialize_robot()
-    demo()
+    # demo()
     
 def chooo():
     activate_horn()
