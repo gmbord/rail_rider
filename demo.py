@@ -506,7 +506,7 @@ def begin_state():
     elif State == 2:
         state_2()
     elif State == 3:
-        state_3
+        state_3()
     elif State == 4:
         globals().update(State = 1)
     
