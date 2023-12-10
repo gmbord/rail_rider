@@ -225,20 +225,20 @@ def chooo():
     keyboard.add_hotkey('0', reset_demo)
     d_a = False
     start = time.time()
-    while time.time() - start < 0.2:
+    while time.time() - start < 0.2 and demo_running:
         if d_a == False:
             activate_horn()
             d_a = True
     
     d_a = False
     start = time.time()
-    while time.time() - start < 0.2:
+    while time.time() - start < 0.2 and demo_running:
         if d_a == False:
             deactivate_horn()
             d_a = True
     d_a = False
     start = time.time()
-    while time.time() - start < 0.3:
+    while time.time() - start < 0.3 and demo_running:
         if d_a == False:
             activate_horn()   
             d_a = True
@@ -246,22 +246,24 @@ def chooo():
 
 def state_1():
     start = time.time()
-    keyboard.add_hotkey('0', reset_demo)
+    keyboard.add_hotkey('0', kill_demo)
     print("BEGINGIN STATE 1")
     # Lower Brushes
-    lin_lowering = False
-    while time.time() - start < 2:
-        if lin_lowering == False:
-            lower_linear()
-            lin_lowering = True
+    if demo_running:
+        lin_lowering = False
+        while time.time() - start < 2 and demo_running:
+            if lin_lowering == False:
+                lower_linear()
+                lin_lowering = True
     stop_linear()
     # enable brush contactor
-    start = time.time()
-    brushes_activated = False
-    while time.time() - start < 0.1:
-        if brushes_activated == False: 
-            activate_brush_power()
-            brushes_activated = True
+    if demo_running:
+        start = time.time()
+        brushes_activated = False
+        while time.time() - start < 0.1 and demo_running:
+            if brushes_activated == False: 
+                activate_brush_power()
+                brushes_activated = True
     # Spin Up brushes
     set_brush_power(0.6)
     
@@ -269,138 +271,154 @@ def state_1():
     print("end of 1 STATE:    ", State)
     
 def state_2():
-    keyboard.add_hotkey('0', reset_demo)
+    keyboard.add_hotkey('0', kill_demo)
     
     print("BEGINGIN STATE 2")
     # Activate Drive Contactor
-    d_a = False
-    start = time.time()
-    while time.time() - start < 0.1:
-        if d_a == False:
-            activate_drive_power()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 0.1 and demo_running:
+            if d_a == False:
+                activate_drive_power()
+                d_a = True
     # disengage brakes
-    d_a = False
-    start = time.time()
-    while time.time() - start < 2.5:
-        if d_a == False:
-            release_brakes()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 2.5 and demo_running:
+            if d_a == False:
+                release_brakes()
+                d_a = True
     stop_brakes()
     # Horn
-    chooo()
+    if demo_running:
+        chooo()
     # Drive Forward
-    d_a = False
-    start = time.time()
-    while time.time() - start < 3:
-        if d_a == False:
-            set_drive_power(0.25)
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 3 and demo_running:
+            if d_a == False:
+                set_drive_power(0.25)
+                d_a = True
     
     # Stop Driving And apply brakes
     set_drive_power(0)
     deactivate_drive_power()
-    d_a = False
-    start = time.time()
-    while time.time() - start < 3:
-        if d_a == False:
-            activate_brakes()
-            activate_front_brakelights()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 3 and demo_running:
+            if d_a == False:
+                activate_brakes()
+                activate_front_brakelights()
+                d_a = True
     deactivate_front_brakelights()
     stop_brakes()
     
     # stop brushes and raise 
+    
     set_brush_power(0)
     deactivate_brush_power()
-    d_a = False
-    start = time.time()
-    while time.time() - start < 3:
-        if d_a == False:
-            raise_linear()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 3 and demo_running:
+            if d_a == False:
+                raise_linear()
+                d_a = True
     stop_linear()
     globals().update(State  = 3)
     print("end of 2 STATE:    ", State)
     
 def state_3():
-    keyboard.add_hotkey('0', reset_demo)
+    keyboard.add_hotkey('0', kill_demo)
     print("BEGINGIN STATE 3")
     # Flip Head Lights and reverse
     activate_rear_headlights()
     activate_reverse()
     
     # lower brushes
-    d_a = False
-    start = time.time()
-    while time.time() - start < 2:
-        if d_a == False:
-            lower_linear()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 2 and demo_running:
+            if d_a == False:
+                lower_linear()
+                d_a = True
     stop_linear()
     
     
     # Start Brushes 
-    d_a = False
-    start = time.time()
-    while time.time() - start < 0.1:
-        if d_a == False:
-            activate_brush_power()
-            d_a = True
-    d_a = False
-    start = time.time()
-    while time.time() - start < 4:
-        if d_a == False:
-            set_brush_power(0.6)
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 0.1 and demo_running:
+            if d_a == False:
+                activate_brush_power()
+                d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 4 and demo_running:
+            if d_a == False:
+                set_brush_power(0.6)
+                d_a = True
     
     # Deactivate Brakes
-    d_a = False
-    start = time.time()
-    while time.time() - start < 2:
-        if d_a == False:
-            release_brakes()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 2 and demo_running:
+            if d_a == False:
+                release_brakes()
+                d_a = True
     
     # horn
-    chooo()
+    if demo_running:
+        chooo()
     
     # drive backwards
-    d_a = False
-    start = time.time()
-    while time.time() - start < 0.1:
-        if d_a == False:
-            activate_drive_power()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 0.1 and demo_running:
+            if d_a == False:
+                activate_drive_power()
+                d_a = True
     
     set_drive_power(0.24)
     
     # wait for michael or 3 seconds
-    start = time.time()
-    michael = False
-    while michael == False and (time.time() - start) < 3:
-        check = get_rear_stereo()
-        if check == 1:
-            michael = True
+    if demo_running:
+        start = time.time()
+        michael = False
+        while michael == False and (time.time() - start) < 3 and demo_running:
+            check = get_rear_stereo()
+            if check == 1:
+                michael = True
     # apply brakes, stop driving, stop brushing
     activate_rear_brakelights()
     deactivate_brush_power()
     set_brush_power(0.0)
     deactivate_drive_power()
     set_drive_power(0)
-    d_a = False
-    start = time.time()
-    while time.time() - start < 2.5:
-        if d_a == False:
-            activate_brakes()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 2.5 and demo_running:
+            if d_a == False:
+                activate_brakes()
+                d_a = True
     stop_brakes()
-    d_a = False
-    start = time.time()
-    while time.time() - start < 2.5:
-        if d_a == False:
-            raise_linear()
-            d_a = True
+    if demo_running:
+        d_a = False
+        start = time.time()
+        while time.time() - start < 2.5 and demo_running:
+            if d_a == False:
+                raise_linear()
+                d_a = True
     globals().update(State  = 4)
     print("end of 3 STATE:    ", State)
     
@@ -415,6 +433,9 @@ def reset_demo():
     globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
     keyboard.wait('esc')
+    
+def kill_demo():
+    globals().update(demo_running = False)
 
     
 def begin_state():
@@ -428,7 +449,6 @@ def begin_state():
         globals().update(State = 1)
     
 def demo():
-    globals().update(demo_running = True)
     initialize_robot()
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
