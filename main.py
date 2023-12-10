@@ -222,6 +222,7 @@ def kill():
     # demo()
     
 def chooo():
+    keyboard.add_hotkey('0', reset_demo)
     d_a = False
     start = time.time()
     while time.time() - start < 0.2:
@@ -245,7 +246,7 @@ def chooo():
 
 def state_1():
     start = time.time()
-    keyboard.add_hotkey('0', kill)
+    keyboard.add_hotkey('0', reset_demo)
     print("BEGINGIN STATE 1")
     # Lower Brushes
     lin_lowering = False
@@ -268,7 +269,7 @@ def state_1():
     print("end of 1 STATE:    ", State)
     
 def state_2():
-    keyboard.add_hotkey('0', kill)
+    keyboard.add_hotkey('0', reset_demo)
     
     print("BEGINGIN STATE 2")
     # Activate Drive Contactor
@@ -323,7 +324,7 @@ def state_2():
     print("end of 2 STATE:    ", State)
     
 def state_3():
-    keyboard.add_hotkey('0', kill)
+    keyboard.add_hotkey('0', reset_demo)
     print("BEGINGIN STATE 3")
     # Flip Head Lights and reverse
     activate_rear_headlights()
@@ -404,6 +405,7 @@ def state_3():
     print("end of 3 STATE:    ", State)
     
 def reset_demo():
+    kill()
     globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
     
@@ -422,8 +424,7 @@ def demo():
     initialize_robot()
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
-    while demo_running:
-        keyboard.add_hotkey('esc', reset_demo)
+    keyboard.wait('0', reset_demo)
     
     
 release_brakes()
