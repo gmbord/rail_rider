@@ -414,8 +414,7 @@ def reset_demo():
     kill()
     globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
-    while demo_running == False:
-        pass
+    keyboard.wait('esc')
 
     
 def begin_state():
