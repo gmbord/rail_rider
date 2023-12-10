@@ -172,10 +172,13 @@ def update_reverse():
         REVERSE = False
 
 def set_brush_power(power):
-    write_serial_b(power)
-
+    #REMEMBER TO UNCOMMENT
+    # write_serial_b(power)
+    pass
 def set_drive_power(power):
-    write_serial_d(power)
+    #REMEMBER TO UNCOMMENT
+    # write_serial_d(power)
+    pass
 
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
