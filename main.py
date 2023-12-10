@@ -28,12 +28,14 @@ def serial_reconnect():
         time.sleep(0.3)
         print("Reconnecting....")
         serial_reconnect()
+        
+#REMEMBER TO UNCOMMENT
 
-try:
-    ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
-    time.sleep(1)
-except:
-    serial_reconnect()
+# try:
+#     ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+#     time.sleep(1)
+# except:
+#     serial_reconnect()
 
 
 
@@ -41,6 +43,8 @@ except:
 
 Drive_Armed = False
 Brush_Armed = False
+
+State = 1
 
 Frames_Dropped = 0
 
@@ -60,110 +64,6 @@ linear_state = 0
 
 REVERSE = False
 
-# def inc_drive_throttle():
-#     if Drive_Armed:
-#         if drive_throttle < 100:
-#             globals().update(drive_throttle = drive_throttle+1)
-#         update_drive(drive_throttle)
-#         print("Drive Throttle", drive_throttle)
-#     else:
-#         print("Drive Disarmed")
-    
-# def dec_drive_throttle():
-#     if Drive_Armed:
-#         if drive_throttle > 0:
-#             globals().update(drive_throttle = drive_throttle-1)
-#         update_drive(drive_throttle)
-#         print("Drive Throttle", drive_throttle)
-#     else:
-#         print("Drive Disarmed")
-        
-# def drive_throttle_zero():
-#     if Drive_Armed:
-#         if drive_throttle > 0:
-#             globals().update(drive_throttle = 0)
-#         update_drive(drive_throttle)
-#         print("Drive Throttle", drive_throttle)
-#     else:
-#         print("Drive Disarmed")
-    
-# def kill_drive_throttle():
-#     globals().update(drive_throttle = 0)
-#     globals().update(Drive_Armed = False)
-#     update_drive(drive_throttle)
-#     deactivate_drive_power()
-#     print("Drive Throttle", drive_throttle)
-#     print("Drive Disarmed")
-    
-# def inc_brush_throttle():
-#     if Brush_Armed:
-#         if brush_throttle < 50:
-#             globals().update(brush_throttle = brush_throttle+1)
-#         update_brush(brush_throttle)
-#         print("Brush Throttle", brush_throttle)
-#     else:
-#         print("Brush Disarmed")
-    
-# def dec_brush_throttle():
-#     if Brush_Armed:
-#         if brush_throttle > 0:
-#             globals().update(brush_throttle = brush_throttle-1)
-#         update_brush(brush_throttle)
-#         print("Brush Throttle" , brush_throttle)
-#     else:
-#         print("Brush Disarmed")
-        
-# def brush_throttle_zero():
-#     if Brush_Armed:
-#         if brush_throttle > 0:
-#             globals().update(brush_throttle = 0)
-#         update_brush(brush_throttle)
-#         print("Brush Throttle" , brush_throttle)
-#     else:
-#         print("Brush Disarmed")
-    
-# def kill_brush_throttle():
-#     globals().update(brush_throttle = 0)
-#     globals().update(Brush_Armed = False)
-#     update_brush(brush_throttle)
-#     deactivate_brush_power()
-#     print("Brush Throttle", brush_throttle)
-#     print("Brush Disarmed")
-    
-# def arm_brush():
-#     globals().update(Brush_Armed = True)
-#     activate_brush_power()
-#     print("Brush Armed")
-    
-# def arm_drive():
-#     globals().update(Drive_Armed = True)
-#     activate_drive_power()
-#     print("Drive Armed")
-    
-# def turn_elight_on():
-#     globals().update(elight_on = True)
-#     update_elight(elight_on)
-#     print("Emergency Light On")
-    
-# def turn_elight_off():
-#     globals().update(elight_on = False)
-#     update_elight(elight_on)
-#     print("Emergency Light Off")
-    
-# def set_linear_up():
-#     globals().update(linear_state = 1)
-#     update_linear(linear_state)
-#     print("Linear State: Raising")
-    
-# def set_linear_down():
-#     globals().update(linear_state = -1)
-#     update_linear(linear_state)
-#     print("Linear State: Lowering")
-    
-# def set_linear_stop():
-#     globals().update(linear_state = 0)
-#     update_linear(linear_state)
-#     print("Linear State: Stopping")
     
 def update_armed():
     if read_sbus_chanel(drive_armed_chanel) > 1500:
@@ -187,11 +87,13 @@ def update_drive():
         power = 1
     if power < 0.02:
         power = 0
-    write_serial_d(power)
+    #REMEMBER TO UNCOMMENT
+    # write_serial_d(power)
     
 def update_drive_zero():
     power = 0
-    write_serial_d(power)
+    #REMEMBER TO UNCOMMENT
+    # write_serial_d(power)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
@@ -206,11 +108,13 @@ def update_brush():
         power = 0.3
     else:
         power = 0
-    write_serial_b(power)
+    #REMEMBER TO UNCOMMENT
+    # write_serial_b(power)
     
 def update_brush_zero():
     power = 0
-    write_serial_b(power)
+    #REMEMBER TO UNCOMMENT
+    # write_serial_b(power)
     
 def update_elight(elight_on):
     if elight_on:
@@ -266,7 +170,12 @@ def update_reverse():
         deactivate_reverse()
         activate_front_headlights()
         REVERSE = False
-        
+
+def set_brush_power(power):
+    write_serial_b(power)
+
+def set_drive_power(power):
+    write_serial_d(power)
 
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
@@ -292,93 +201,230 @@ def write_serial_b(power):
         ser.close()
         serial_reconnect()
     
-
-        
-        
-        
-def read_serial():
-    line = ser.readline().decode('utf-8').rstrip()
-    print(line)
-    
 def initialize_robot():
     deactivate_brush_power()
     deactivate_drive_power()
     activate_emergency_light()
     stop_linear()
-    update_brush_zero()
-    update_drive_zero()
-
-def main_control_loop():
-    # while True:
-    #     for i in range(255):
-    #         update_drive(i)
-    #         update_brush(i)
-    #         # update_drive_zero()
-    #         # update_brush_zero()
-            
-    #         time.sleep(0.05)
-    #     time.sleep(0.5)
-        
-    while True:
-        sbus_con = sbus_connected()
-        if sbus_con:
-            globals().update(Frames_Dropped  = 0)
-            
-            update_armed()
-            update_reverse()
-            if Drive_Armed:
-                activate_drive_power()
-                update_drive()
-            else:
-                deactivate_drive_power()
-                update_drive_zero()
-            if Brush_Armed:
-                activate_brush_power()
-                update_brush()
-            else:
-                deactivate_brush_power()
-                update_brush_zero()
-            update_linear()
-            update_horn()
-            update_elight(True)
-            front_stereo = get_front_stereo()
-            rear_stereo = get_rear_stereo()
-            go_button = get_go_button()
-            update_brakes()
-            
-            print("SBUS IS CONNECTED: ", sbus_con)
-            
-        else:
-            globals().update(Frames_Dropped  = Frames_Dropped + 1)
-            if Frames_Dropped > 50:
-                initialize_robot()
-                globals().update(Drive_Armed = False)
-                globals().update(Brush_Armed = False)
-        time.sleep(0.05)
-        print("")
-        print("*********************************************")
-        
-        
-    # keyboard.add_hotkey('w', inc_drive_throttle)
-    # keyboard.add_hotkey('q', dec_drive_throttle)
-    # keyboard.add_hotkey('shift + q', drive_throttle_zero)
-    # keyboard.add_hotkey('x', kill_drive_throttle)
-    # keyboard.add_hotkey('s', inc_brush_throttle)
-    # keyboard.add_hotkey('a', dec_brush_throttle)
-    # keyboard.add_hotkey('shift + a', brush_throttle_zero)
-    # keyboard.add_hotkey('z', kill_brush_throttle)
-    # keyboard.add_hotkey('shift + z', arm_brush)
-    # keyboard.add_hotkey('shift + x', arm_drive)
-    # keyboard.add_hotkey('l', turn_elight_on)
-    # keyboard.add_hotkey('k', turn_elight_off)
-    # keyboard.add_hotkey('i', set_linear_down)
-    # keyboard.add_hotkey('o', set_linear_stop)
-    # keyboard.add_hotkey('p', set_linear_up)
-    
-    # keyboard.wait('esc')  
+    set_brush_power(0.0)
+    set_drive_power(0.0)
+    deactivate_horn()
+    activate_front_headlights()
+    release_brakes()
     
 
+
+def kill():
+    initialize_robot()
+    # demo()
+    
+def chooo():
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.2:
+        if d_a == False:
+            activate_horn()
+            d_a = True
+    
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.2:
+        if d_a == False:
+            deactivate_horn()
+            d_a = True
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.3:
+        if d_a == False:
+            activate_horn()   
+            d_a = True
+    deactivate_horn()
+
+def state_1():
+    start = time.time()
+    keyboard.add_hotkey('0', kill)
+    print("BEGINGIN STATE 1")
+    # Lower Brushes
+    lin_lowering = False
+    while time.time() - start < 2;
+        if lin_lowering == False:
+            lower_linear()
+            lin_lowering = True
+    stop_linear()
+    # enable brush contactor
+    start = time.time()
+    brushes_activated = False
+    while time.time() - start < 0.1:
+        if brushes_activated == False: 
+            activate_brush_power()
+            brushes_activated = True
+    # Spin Up brushes
+    set_brush_power(0.6)
+    
+    globals().update(State  = 2)
+    print("end of 1 STATE:    ", State)
+    
+def state_2():
+    keyboard.add_hotkey('0', kill)
+    
+    print("BEGINGIN STATE 2")
+    # Activate Drive Contactor
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.1:
+        if d_a == False:
+            activate_drive_power()
+            d_a = True
+    # disengage brakes
+    d_a = False
+    start = time.time()
+    while time.time() - start < 2.5:
+        if d_a == False:
+            release_brakes()
+            d_a = True
+    stop_brakes()
+    # Horn
+    chooo()
+    # Drive Forward
+    d_a = False
+    start = time.time()
+    while time.time() - start < 3:
+        if d_a == False:
+            set_drive_power(0.25)
+            d_a = True
+    
+    # Stop Driving And apply brakes
+    set_drive_power(0)
+    deactivate_drive_power()
+    d_a = False
+    start = time.time()
+    while time.time() - start < 3:
+        if d_a == False:
+            activate_brakes()
+            activate_front_brakelights()
+            d_a = True
+    deactivate_front_brakelights()
+    stop_brakes()
+    
+    # stop brushes and raise 
+    set_brush_power(0)
+    deactivate_brush_power()
+    d_a = False
+    start = time.time()
+    while time.time() - start < 3:
+        if d_a == False:
+            raise_linear()
+            d_a = True
+    stop_linear()
+    globals().update(State  = 3)
+    print("end of 2 STATE:    ", State)
+    
+def state_3():
+    keyboard.add_hotkey('0', kill)
+    print("BEGINGIN STATE 3")
+    # Flip Head Lights and reverse
+    activate_rear_headlights()
+    activate_reverse()
+    
+    # lower brushes
+    d_a = False
+    start = time.time()
+    while time.time() - start < 2:
+        if d_a == False:
+            lower_linear()
+            d_a = True
+    stop_linear()
+    
+    
+    # Start Brushes 
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.1:
+        if d_a == False:
+            activate_brush_power()
+            d_a = True
+    d_a = False
+    start = time.time()
+    while time.time() - start < 4:
+        if d_a == False:
+            set_brush_power(0.6)
+            d_a = True
+    
+    # Deactivate Brakes
+    d_a = False
+    start = time.time()
+    while time.time() - start < 2:
+        if d_a == False:
+            release_brakes()
+            d_a = True
+    
+    # horn
+    chooo()
+    
+    # drive backwards
+    d_a = False
+    start = time.time()
+    while time.time() - start < 0.1:
+        if d_a == False:
+            activate_drive_power()
+            d_a = True
+    
+    set_drive_power(0.24)
+    
+    # wait for michael or 3 seconds
+    start = time.time()
+    michael = False
+    while michael == False and (time.time() - start) < 3:
+        check = get_rear_stereo()
+        if check == 1:
+            michael = True
+    # apply brakes, stop driving, stop brushing
+    activate_rear_brakelights()
+    deactivate_brush_power()
+    set_brush_power(0.0)
+    deactivate_drive_power()
+    set_drive_power(0)
+    d_a = False
+    start = time.time()
+    while time.time() - start < 2.5:
+        if d_a == False:
+            activate_brakes()
+            d_a = True
+    stop_brakes()
+    d_a = False
+    start = time.time()
+    while time.time() - start < 2.5:
+        if d_a == False:
+            raise_linear()
+            d_a = True
+    globals().update(State  = 4)
+    print("end of 3 STATE:    ", State)
+    
+def reset_demo():
+    globals().update(State  = 1)
+    keyboard.add_hotkey('1', demo)
+    
+def begin_state():
+    if State == 1:
+        state_1()
+    elif State == 2:
+        state_2()
+    elif State == 3:
+        state_3()
+    elif State == 4:
+        globals().update(State = 1)
+    
+def demo():
+    
+    initialize_robot()
+    demo_running = True
+    keyboard.add_hotkey('1', begin_state)
+    while demo_running:
+        keyboard.add_hotkey('esc', reset_demo)
+    
+    
 release_brakes()
 time.sleep(2)
-initialize_robot()
-main_control_loop()
+demo()
+
+
