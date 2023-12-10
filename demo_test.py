@@ -224,7 +224,6 @@ def initialize_robot():
 
     
 def chooo():
-    keyboard.add_hotkey('0', kill_demo)
     d_a = False
     start = time.time()
     while time.time() - start < 0.2 and demo_running:
