@@ -63,6 +63,7 @@ elight_on = True
 linear_state = 0
 
 REVERSE = False
+demo_running = True  
 
     
 def update_armed():
@@ -423,7 +424,7 @@ def state_3():
     globals().update(State  = 4)
     print("end of 3 STATE:    ", State)
     
-demo_running = True    
+  
 
 def reset_demo():
     # STOPPING DEMO
