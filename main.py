@@ -410,7 +410,9 @@ def reset_demo():
     print("WAITING TO RESTART")
     kill()
     globals().update(State  = 1)
-    keyboard.wait('1', demo)
+    keyboard.add_hotkey('1', demo)
+    while True:
+        pass
     
 def begin_state():
     if State == 1:
@@ -427,7 +429,9 @@ def demo():
     initialize_robot()
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
-    keyboard.wait('0', reset_demo)
+    keyboard.add_hotkey('0', reset_demo)
+    while True:
+        pass
     
     
 release_brakes()
