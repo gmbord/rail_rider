@@ -253,6 +253,8 @@ def state_1():
     if demo_running:
         lin_lowering = False
         while time.time() - start < 2 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if lin_lowering == False:
                 lower_linear()
                 lin_lowering = True
@@ -262,6 +264,8 @@ def state_1():
         start = time.time()
         brushes_activated = False
         while time.time() - start < 0.1 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if brushes_activated == False: 
                 activate_brush_power()
                 brushes_activated = True
@@ -280,6 +284,8 @@ def state_2():
         d_a = False
         start = time.time()
         while time.time() - start < 0.1 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 activate_drive_power()
                 d_a = True
@@ -288,6 +294,8 @@ def state_2():
         d_a = False
         start = time.time()
         while time.time() - start < 2.5 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 release_brakes()
                 d_a = True
@@ -300,6 +308,8 @@ def state_2():
         d_a = False
         start = time.time()
         while time.time() - start < 3 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 set_drive_power(0.25)
                 d_a = True
@@ -311,6 +321,8 @@ def state_2():
         d_a = False
         start = time.time()
         while time.time() - start < 3 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 activate_brakes()
                 activate_front_brakelights()
@@ -326,6 +338,8 @@ def state_2():
         d_a = False
         start = time.time()
         while time.time() - start < 3 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 raise_linear()
                 d_a = True
@@ -346,6 +360,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 2 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 lower_linear()
                 d_a = True
@@ -357,6 +373,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 0.1 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 activate_brush_power()
                 d_a = True
@@ -364,6 +382,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 4 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 set_brush_power(0.6)
                 d_a = True
@@ -373,6 +393,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 2 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 release_brakes()
                 d_a = True
@@ -386,6 +408,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 0.1 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 activate_drive_power()
                 d_a = True
@@ -397,6 +421,8 @@ def state_3():
         start = time.time()
         michael = False
         while michael == False and (time.time() - start) < 3 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             check = get_rear_stereo()
             if check == 1:
                 michael = True
@@ -410,6 +436,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 2.5 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 activate_brakes()
                 d_a = True
@@ -418,6 +446,8 @@ def state_3():
         d_a = False
         start = time.time()
         while time.time() - start < 2.5 and demo_running:
+            if keyboard.is_pressed('0'):
+                kill_demo()
             if d_a == False:
                 raise_linear()
                 d_a = True
