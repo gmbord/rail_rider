@@ -31,11 +31,11 @@ def serial_reconnect():
         
 #REMEMBER TO UNCOMMENT
 
-# try:
-#     ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
-#     time.sleep(1)
-# except:
-#     serial_reconnect()
+try:
+    ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)
+    time.sleep(1)
+except:
+    serial_reconnect()
 
 
 
@@ -88,12 +88,12 @@ def update_drive():
     if power < 0.02:
         power = 0
     #REMEMBER TO UNCOMMENT
-    # write_serial_d(power)
+    write_serial_d(power)
     
 def update_drive_zero():
     power = 0
     #REMEMBER TO UNCOMMENT
-    # write_serial_d(power)
+    write_serial_d(power)
 
 def update_brush():
     # Switch 4, LOW: 192, MID: 992, HIGH: 1792
@@ -109,12 +109,12 @@ def update_brush():
     else:
         power = 0
     #REMEMBER TO UNCOMMENT
-    # write_serial_b(power)
+    write_serial_b(power)
     
 def update_brush_zero():
     power = 0
     #REMEMBER TO UNCOMMENT
-    # write_serial_b(power)
+    write_serial_b(power)
     
 def update_elight(elight_on):
     if elight_on:
@@ -173,12 +173,12 @@ def update_reverse():
 
 def set_brush_power(power):
     #REMEMBER TO UNCOMMENT
-    # write_serial_b(power)
-    pass
+    write_serial_b(power)
+
 def set_drive_power(power):
     #REMEMBER TO UNCOMMENT
-    # write_serial_d(power)
-    pass
+    write_serial_d(power)
+
 
 def write_serial_d(power):
     output = "d"+ str(int(255*power))+"\n"
