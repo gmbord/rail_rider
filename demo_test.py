@@ -432,6 +432,7 @@ def reset_demo():
     print("STOPPING DEMO")
     print("WAITING TO RESTART")
     globals().update(State  = 1)
+    keyboard.unhook_all_hotkeys()
     demo()
     
 def kill_demo():
