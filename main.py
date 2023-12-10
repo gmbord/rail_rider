@@ -426,7 +426,7 @@ demo_running = True
 
 def reset_demo():
     # STOPPING DEMO
-    globals().update(demo_running = True)
+    globals().update(demo_running = False)
     print("STOPPING DEMO")
     print("WAITING TO RESTART")
     kill()
@@ -436,6 +436,7 @@ def reset_demo():
     
 def kill_demo():
     globals().update(demo_running = False)
+    reset_demo()
 
     
 def begin_state():
@@ -449,8 +450,8 @@ def begin_state():
         globals().update(State = 1)
     
 def demo():
+    globals().update(demo_running = True)
     initialize_robot()
-    demo_running = True
     keyboard.add_hotkey('1', begin_state)
     keyboard.wait('esc')
     
