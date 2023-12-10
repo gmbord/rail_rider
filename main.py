@@ -205,6 +205,7 @@ def write_serial_b(power):
         serial_reconnect()
     
 def initialize_robot():
+    deactivate_reverse()
     deactivate_brush_power()
     deactivate_drive_power()
     activate_emergency_light()
