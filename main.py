@@ -404,15 +404,19 @@ def state_3():
     globals().update(State  = 4)
     print("end of 3 STATE:    ", State)
     
+demo_running = True    
+
 def reset_demo():
     # STOPPING DEMO
+    globals().update(demo_running = True)
     print("STOPPING DEMO")
     print("WAITING TO RESTART")
     kill()
     globals().update(State  = 1)
     keyboard.add_hotkey('1', demo)
-    while True:
+    while demo_running == False:
         pass
+
     
 def begin_state():
     if State == 1:
@@ -425,12 +429,12 @@ def begin_state():
         globals().update(State = 1)
     
 def demo():
-    
+    globals().update(demo_running = True)
     initialize_robot()
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
     keyboard.add_hotkey('0', reset_demo)
-    while True:
+    while demo_running:
         pass
     
     
