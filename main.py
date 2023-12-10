@@ -434,8 +434,7 @@ def demo():
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
     keyboard.add_hotkey('0', reset_demo)
-    while demo_running:
-        pass
+    keyboard.wait('esc')
     
     
 release_brakes()
