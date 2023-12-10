@@ -424,7 +424,7 @@ def demo():
     initialize_robot()
     demo_running = True
     keyboard.add_hotkey('1', begin_state)
-    keyboard.wait('0', reset_demo)
+    keyboard.wait('esc', reset_demo)
     
     
 release_brakes()
