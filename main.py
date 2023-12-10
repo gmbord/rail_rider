@@ -378,7 +378,5 @@ def main_control_loop():
     # keyboard.wait('esc')  
     
 
-release_brakes()
-time.sleep(2)
 initialize_robot()
 main_control_loop()
