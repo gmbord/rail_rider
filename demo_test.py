@@ -221,9 +221,7 @@ def initialize_robot():
     
 
 
-def kill():
-    initialize_robot()
-    # demo()
+
     
 def chooo():
     keyboard.add_hotkey('0', kill_demo)
@@ -433,10 +431,8 @@ def reset_demo():
     globals().update(demo_running = False)
     print("STOPPING DEMO")
     print("WAITING TO RESTART")
-    kill()
     globals().update(State  = 1)
-    keyboard.add_hotkey('1', demo)
-    keyboard.wait('esc')
+    demo()
     
 def kill_demo():
     globals().update(demo_running = False)
