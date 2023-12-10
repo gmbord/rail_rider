@@ -437,6 +437,7 @@ def reset_demo():
 def kill_demo():
     globals().update(demo_running = False)
     print("DEMO IS RUNNING ", demo_running)
+    initialize_robot()
     # reset_demo()
 
     
