@@ -270,6 +270,7 @@ def state_1():
     set_brush_power(0.6)
     
     globals().update(State  = 2)
+    globals().update(demo_running = True)
     print("end of 1 STATE:    ", State)
     
 def state_2():
@@ -331,6 +332,7 @@ def state_2():
                 d_a = True
     stop_linear()
     globals().update(State  = 3)
+    globals().update(demo_running = True)
     print("end of 2 STATE:    ", State)
     
 def state_3():
@@ -421,6 +423,7 @@ def state_3():
                 raise_linear()
                 d_a = True
     globals().update(State  = 4)
+    globals().update(demo_running = True)
     print("end of 3 STATE:    ", State)
     
   
