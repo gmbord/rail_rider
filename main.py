@@ -246,7 +246,7 @@ def state_1():
     print("BEGINGIN STATE 1")
     # Lower Brushes
     lin_lowering = False
-    while time.time() - start < 2;
+    while time.time() - start < 2:
         if lin_lowering == False:
             lower_linear()
             lin_lowering = True
