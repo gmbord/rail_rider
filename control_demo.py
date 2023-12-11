@@ -291,13 +291,15 @@ def state_2():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 0.25 and demo_running:
+        while time.time() - start < 1 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
                 activate_drive_power()
+                activate_brush_power()
                 d_a = True
     # disengage brakes
+    set_brush_power(1.0)
     if demo_running:
         d_a = False
         start = time.time()

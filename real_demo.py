@@ -307,7 +307,7 @@ def state_2():
     # Horn
     if demo_running:
         chooo()
-        pass
+
     # Drive Forward
     if demo_running:
         d_a = False
@@ -410,7 +410,6 @@ def state_3():
     # horn
     if demo_running:
         chooo()
-        pass
     
     # drive backwards
     set_drive_power(0.33)
