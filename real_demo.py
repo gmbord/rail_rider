@@ -261,7 +261,7 @@ def state_1():
     if demo_running:
         start = time.time()
         brushes_activated = False
-        while time.time() - start < 0.1 and demo_running:
+        while time.time() - start < 0.25 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if brushes_activated == False: 
@@ -281,7 +281,7 @@ def state_2():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 0.1 and demo_running:
+        while time.time() - start < 0.25 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
@@ -370,7 +370,7 @@ def state_3():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 0.1 and demo_running:
+        while time.time() - start < 0.25 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
@@ -405,7 +405,7 @@ def state_3():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 0.1 and demo_running:
+        while time.time() - start < 0.25 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
