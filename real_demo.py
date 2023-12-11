@@ -317,7 +317,7 @@ def state_2():
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
-                set_drive_power(0.25)
+                set_drive_power(0.33)
                 d_a = True
     
     # Stop Driving And apply brakes
@@ -414,7 +414,7 @@ def state_3():
         pass
     
     # drive backwards
-    set_drive_power(0.24)
+    set_drive_power(0.33)
     
     # wait for michael or 3 seconds
     if demo_running:
