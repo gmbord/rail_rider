@@ -485,7 +485,7 @@ def begin_state():
 def demo():
     globals().update(demo_running = True)
     initialize_robot()
-    keyboard.add_hotkey('1', begin_state)
+    keyboard.add_hotkey('9', begin_state)
     keyboard.wait('esc')
     
 keyboard.add_hotkey('0', kill_demo)
