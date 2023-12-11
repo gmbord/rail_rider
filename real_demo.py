@@ -300,7 +300,8 @@ def state_2():
     stop_brakes()
     # Horn
     if demo_running:
-        chooo()
+        # chooo()
+        pass
     # Drive Forward
     if demo_running:
         d_a = False
@@ -399,7 +400,8 @@ def state_3():
     
     # horn
     if demo_running:
-        chooo()
+        # chooo()
+        pass
     
     # drive backwards
     if demo_running:
