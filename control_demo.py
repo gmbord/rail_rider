@@ -246,6 +246,10 @@ def chooo():
 def state_1():
     start = time.time()
     print("BEGINGIN STATE 1")
+    set_brush_power(0.0)
+    set_drive_power(0.0)
+    deactivate_brush_power()
+    deactivate_drive_power()
     # Lower Brushes
     if demo_running:
         lin_lowering = False
@@ -467,18 +471,13 @@ def kill_demo():
 
     
 def begin_state():
-    keyboard.wait('9')
-    if State == 1:
-        state_1()
-    keyboard.wait('9')
-    if State == 2:
-        state_2()
-    keyboard.wait('9')
-    if State == 3:
-        state_3()
-    keyboard.wait('9')
-    if State == 4:
-        globals().update(State = 1)
+    while True:
+        if keyboard.is_pressed('1'):
+            state_1()
+        if keyboard.is_pressed('2'):
+            state_2()
+        if keyboard.is_pressed('3'):
+            state_3()
     
 def demo():
     globals().update(demo_running = True)
