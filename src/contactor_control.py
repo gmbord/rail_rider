@@ -25,8 +25,8 @@ def deactivate_drive_power():
     
 def activate_brush_power():
     pi.write(BRUSH, 1)
-    print("ACTIVATING DRIVE POWER")
+    print("ACTIVATING BRUSH POWER")
     
 def deactivate_brush_power():
     pi.write(BRUSH, 0)
-    print("DEACTIVATING DRIVE POWER")
+    print("DEACTIVATING BRUSH POWER")

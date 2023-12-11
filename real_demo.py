@@ -250,7 +250,7 @@ def state_1():
     # Lower Brushes
     if demo_running:
         lin_lowering = False
-        while time.time() - start < 5  and demo_running:
+        while time.time() - start < 2.5  and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
                 print("KILLING DEMO!!!")
@@ -272,9 +272,10 @@ def state_1():
                 print("IN BRUSH ACTIVATION")
                 activate_brush_power()
                 brushes_activated = True
-    # Spin Up brushes
-    print("BRUSHES ZE POWER UNTZ")
-    set_brush_power(1.0)
+                set_brush_power(0.0)
+        # Spin Up brushes
+        print("BRUSHES ZE POWER UNTZ")
+        set_brush_power(1.0)
     
     globals().update(State  = 2)
     globals().update(demo_running = True)
