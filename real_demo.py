@@ -275,7 +275,16 @@ def state_1():
                 set_brush_power(0.0)
         # Spin Up brushes
         print("BRUSHES ZE POWER UNTZ")
-        set_brush_power(1.0)
+        start = time.time()
+        i = 1
+        while(i < 10):
+            if keyboard.is_pressed('0'):
+                kill_demo()
+                break
+            if time.time() - start > 0.05:
+                set_brush_power(i/9)
+                i = i+1
+                start = time.time()
     
     globals().update(State  = 2)
     globals().update(demo_running = True)

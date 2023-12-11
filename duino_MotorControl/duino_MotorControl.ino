@@ -14,6 +14,7 @@ void setup(){
   pinMode(scrubOut, OUTPUT);
   TCCR1B &= ~2;
   analogWrite(driveOut, 43);
+  analogWrite(scrubOut, 43);
   delay(500);
 }
 
