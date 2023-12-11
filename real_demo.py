@@ -485,13 +485,13 @@ def begin_state():
     if State == 1:
         state_1()
     keyboard.wait('9')
-    elif State == 2:
+    if State == 2:
         state_2()
     keyboard.wait('9')
-    elif State == 3:
+    if State == 3:
         state_3()
     keyboard.wait('9')
-    elif State == 4:
+    if State == 4:
         globals().update(State = 1)
     
 def demo():
