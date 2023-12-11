@@ -18,7 +18,7 @@ pi.write(FRONT_CAM , 0)
 pi.write(BACK_CAM , 0)
 
 point = (320, 240)
-scary_range = 1500
+scary_range = 2000
 consecutive_front = 0
 consecutive_back = 0
 # def show_distance(event, x, y, args, params):
