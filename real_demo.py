@@ -323,8 +323,8 @@ def state_2():
     # Stop Driving And apply brakes
     set_drive_power(0)
     deactivate_drive_power()
+    d_a = False
     if demo_running:
-        d_a = False
         start = time.time()
         while time.time() - start < 3 and demo_running:
             if keyboard.is_pressed('0'):
@@ -360,6 +360,8 @@ def state_3():
     # Flip Head Lights and reverse
     activate_rear_headlights()
     activate_reverse()
+    set_brush_power(0.0)
+    set_drive_power(0.0)
     
     # lower brushes
     if demo_running:
@@ -378,11 +380,12 @@ def state_3():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 0.25 and demo_running:
+        while time.time() - start < 1 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
                 activate_brush_power()
+                activate_drive_power()
                 d_a = True
     if demo_running:
         d_a = False
@@ -411,16 +414,6 @@ def state_3():
         pass
     
     # drive backwards
-    if demo_running:
-        d_a = False
-        start = time.time()
-        while time.time() - start < 0.25 and demo_running:
-            if keyboard.is_pressed('0'):
-                kill_demo()
-            if d_a == False:
-                activate_drive_power()
-                d_a = True
-    
     set_drive_power(0.24)
     
     # wait for michael or 3 seconds
@@ -442,22 +435,15 @@ def state_3():
     if demo_running:
         d_a = False
         start = time.time()
-        while time.time() - start < 2.5 and demo_running:
+        while time.time() - start < 4.20 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             if d_a == False:
                 activate_brakes()
-                d_a = True
-    stop_brakes()
-    if demo_running:
-        d_a = False
-        start = time.time()
-        while time.time() - start < 2.5 and demo_running:
-            if keyboard.is_pressed('0'):
-                kill_demo()
-            if d_a == False:
                 raise_linear()
                 d_a = True
+    stop_brakes()
+
     globals().update(State  = 4)
     globals().update(demo_running = True)
     print("end of 3 STATE:    ", State)
