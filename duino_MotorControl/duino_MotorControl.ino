@@ -42,12 +42,7 @@ void loop(){
   } else if (!Serial){ //if serial port connection is closed don't command motors
     dutyD = 0;
     dutyS = 0;
-  } else if (millis() - time > 750){
-    dutyD = 0;
-    dutyS = 0;
-    time = millis();
-    //Serial.println("TIMED OUT");
-  }
+  } 
 
   if (dutyD > 255) dutyD = 0;
   //else if (dutyD < 0) dutyD = 0;
