@@ -420,7 +420,7 @@ def state_3():
     if demo_running:
         start = time.time()
         michael = False
-        while michael == False and (time.time() - start) < 2.77 and demo_running:
+        while michael == False and (time.time() - start) < 3.5 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
             check = get_rear_stereo()
