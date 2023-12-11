@@ -250,7 +250,7 @@ def state_1():
     # Lower Brushes
     if demo_running:
         lin_lowering = False
-        while time.time() - start < 55555  and demo_running:
+        while time.time() - start < 5  and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
                 print("KILLING DEMO!!!")
