@@ -54,7 +54,7 @@ void loop(){
   else if (dutyD < 43) dutyD = 43;
   if (dutyS > 255) dutyS = 0;
   //else if (dutyS < 0) dutyS = 0;
-  else if (dutyS > 192) dutyS = 192;
+  else if (dutyS > 205) dutyS = 205;
   else if (dutyS < 43) dutyS = 43;
 
   analogWrite(driveOut, dutyD);
