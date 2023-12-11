@@ -250,24 +250,30 @@ def state_1():
     # Lower Brushes
     if demo_running:
         lin_lowering = False
-        while time.time() - start < 2 and demo_running:
+        while time.time() - start < 55555  and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
+                print("KILLING DEMO!!!")
             if lin_lowering == False:
                 lower_linear()
                 lin_lowering = True
+    print("STOPPING LINEAR")
     stop_linear()
     # enable brush contactor
     if demo_running:
         start = time.time()
         brushes_activated = False
+        print("ACTIVATING ZE BRUSHES")
         while time.time() - start < 0.25 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
-            if brushes_activated == False: 
+                print("KILLING DEMO")
+            if brushes_activated == False:
+                print("IN BRUSH ACTIVATION")
                 activate_brush_power()
                 brushes_activated = True
     # Spin Up brushes
+    print("BRUSHES ZE POWER UNTZ")
     set_brush_power(1.0)
     
     globals().update(State  = 2)
