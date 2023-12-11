@@ -264,7 +264,7 @@ def state_1():
         start = time.time()
         brushes_activated = False
         print("ACTIVATING ZE BRUSHES")
-        while time.time() - start < 3 and demo_running:
+        while time.time() - start < 1 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
                 print("KILLING DEMO")
