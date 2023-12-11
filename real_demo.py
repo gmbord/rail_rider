@@ -209,12 +209,12 @@ def initialize_robot():
     deactivate_reverse()
     deactivate_brush_power()
     deactivate_drive_power()
-    activate_emergency_light()
+    deactivate_emergency_light()
     stop_linear()
     set_brush_power(0.0)
     set_drive_power(0.0)
     deactivate_horn()
-    activate_front_headlights()
+    deactivate_headlights()
     release_brakes()
     
 
@@ -244,6 +244,8 @@ def chooo():
     deactivate_horn()
 
 def state_1():
+    activate_emergency_light()
+    activate_front_headlights()
     start = time.time()
     print("BEGINGIN STATE 1")
     # Lower Brushes
@@ -445,7 +447,9 @@ def state_3():
     globals().update(State  = 4)
     globals().update(demo_running = True)
     print("end of 3 STATE:    ", State)
-    
+    deactivate_emergency_light()
+    deactivate_headlights()
+    release_brakes()
   
 
 def reset_demo():
@@ -476,9 +480,11 @@ def begin_state():
     if State == 3:
         state_3()
     keyboard.wait('9')
-    if State == 4:
-        globals().update(State = 1)
-    
+   
+    while True:
+        if keyboard.is_pressed('7'):
+            chooo()
+
 def demo():
     globals().update(demo_running = True)
     initialize_robot()
