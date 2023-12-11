@@ -264,7 +264,7 @@ def state_1():
         start = time.time()
         brushes_activated = False
         print("ACTIVATING ZE BRUSHES")
-        while time.time() - start < 0.25 and demo_running:
+        while time.time() - start < 3 and demo_running:
             if keyboard.is_pressed('0'):
                 kill_demo()
                 print("KILLING DEMO")
@@ -272,20 +272,11 @@ def state_1():
                 print("IN BRUSH ACTIVATION")
                 activate_brush_power()
                 brushes_activated = True
-                set_brush_power(0.0)
         # Spin Up brushes
         print("BRUSHES ZE POWER UNTZ")
         start = time.time()
-        i = 1
-        while(i < 10):
-            if keyboard.is_pressed('0'):
-                kill_demo()
-                break
-            if time.time() - start > 0.05:
-                set_brush_power(i/9)
-                i = i+1
-                start = time.time()
-    
+        set_brush_power(1.0)
+
     globals().update(State  = 2)
     globals().update(demo_running = True)
     print("end of 1 STATE:    ", State)
@@ -347,7 +338,7 @@ def state_2():
     
     # stop brushes and raise 
     
-    set_brush_power(0)
+    set_brush_power(0.0)
     deactivate_brush_power()
     if demo_running:
         d_a = False
