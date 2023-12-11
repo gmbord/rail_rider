@@ -481,22 +481,24 @@ def kill_demo():
 
     
 def begin_state():
+    keyboard.wait('9')
     if State == 1:
         state_1()
+    keyboard.wait('9')
     elif State == 2:
         state_2()
+    keyboard.wait('9')
     elif State == 3:
         state_3()
+    keyboard.wait('9')
     elif State == 4:
         globals().update(State = 1)
     
 def demo():
     globals().update(demo_running = True)
     initialize_robot()
-    keyboard.add_hotkey('9', begin_state)
-    keyboard.wait('esc')
+    begin_state()
     
-keyboard.add_hotkey('0', kill_demo)
 release_brakes()
 time.sleep(2)
 demo()
