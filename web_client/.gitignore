@@ -26,4 +26,3 @@ dist-ssr
 
 # Default dependencies (React/Vite)
 package-lock.json
-ontrack-images/
