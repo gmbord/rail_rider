@@ -26,3 +26,10 @@ dist-ssr
 
 # Default dependencies (React/Vite)
 package-lock.json
+src/ontrack-images/Red_product_sheet.pdf
+src/ontrack-images/TRAIN.png
+src/ontrack-images/cleanyclean.png
+src/ontrack-images/dirty.png
+src/ontrack-images/ontrack.png
+src/ontrack-images/problem.png
+src/ontrack-images/robit.png
