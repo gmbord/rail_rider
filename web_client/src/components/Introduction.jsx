@@ -9,12 +9,10 @@ export default function Introduction() {
 
     useEffect(() => {
         const observer = new IntersectionObserver(entries => {
-            // Get the first entry
             const [entry] = entries;
-            // Update state based on visibility
             setIsVisible(entry.isIntersecting);
         }, {
-            threshold: .01 // The callback will trigger only when 100% of the target is visible
+            threshold: 0.01 // Corrected comment: triggers when 1% of the target is visible
         });
 
         const currentRef = introRef.current;
@@ -33,10 +31,16 @@ export default function Introduction() {
         <div className="intro-wrapper" ref={introRef}>
             { isVisible &&
             <>
-            <h1><a>Introducing OnTrack</a></h1>
-            <img className="robit" src={ROBIT} alt="robit" />
-            <h2>This special little fella cleans approximately <a>69%</a> of black precipitate off of railways while stinky, <a style={{"color": "limegreen"}}>stinky</a> 	&#129326; powerwashers only clean up to <a>-20%</a> </h2>
-            <img className="cleany-boi" src={CLEAN} alt="clean boi"/>
+                <h1><span>Introducing OnTrack</span></h1>
+                <img className="robit" src={ROBIT} alt="robit" />
+                <h2>
+                    This special little fella cleans approximately 
+                    <span> 69%</span> of black precipitate off of railways while stinky, 
+                    <span style={{ color: "limegreen" }}> stinky</span> 
+                    <span role="img" aria-label="face with tongue">&#129326;</span> powerwashers only clean up to 
+                    <span> -20%</span>
+                </h2>
+                <img className="cleany-boi" src={CLEAN} alt="clean boi"/>
             </>}
         </div>
     );

@@ -6,7 +6,6 @@
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
-    animation: appear 1.5s ease-in;
 }
 
 .divided-left{
@@ -39,12 +38,24 @@ h2{
     font-size: 250%;
 }
 
+span{
+    color: var(--primary-red);
+}
+
 
 a {
     font-weight: 400%;
     color: var(--primary-red);
 }
 
+
+.smooth-appear {
+    animation: smooth-appear 1.5s ease-in-out;
+}
+
+.force-transparent{
+    opacity: 0;
+}
 
 
 @keyframes appear{
@@ -57,6 +68,11 @@ a {
     100%{
         opacity: 100;
     }
+}
+
+@keyframes smooth-appear {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @media  (max-width: 600px) {
